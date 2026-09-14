@@ -11,7 +11,7 @@ This project was done during my summer internship at the University of Twente, u
 
 ## Repository Structure:
 
-#### [REPORT.md](REPORT:md) :
+#### [REPORT.md](REPORT.md) :
 - Report covering the project's progress: what is done and tested, decisions made, and full results
 
 #### [release/](release/):
