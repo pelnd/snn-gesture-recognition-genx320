@@ -56,6 +56,11 @@ See [REPORT.md](REPORT:md) for full results and analysis.
 - **Held-out set is clip-held-out, not subject-held-out**: the 89.7% result shows generalization to new recordings of the same people, not to a new person.
 - **Small dataset**: fine-tuning data is ~250 clips total, which limits how far the results generalize.
 
+## Future Work:
+
+- **Deployment on STM32**
+- **Enrich fine-tuning and testing data** — more clips, more subjects, more consistent recording conditions (see bias inconsistency above).
+
 ## Credits:
 - [SpikingJelly](https://github.com/fangwei123456/spikingjelly): SNN framework used for training and inference. The training scripts are based on their `classify_dvsg.py` example, heavily modified (see `third-party-licenses/`).
 - [DVS128Gesture](https://research.ibm.com/interactive/dvsgesture/): base training dataset.
