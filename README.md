@@ -4,7 +4,7 @@ Welcome!
 
 This repository includes the development stages and final release of a spiking neural network(SNN) model for event-based hand gesture recognition, using real-time data from a Prophesee GenX320 event camera, deployed on a Raspberry Pi. 
 
-Event-based sensing and SNNs are both driven by change rather than fixed frames; a combination of them might be a step toward low-power, real-time gesture recognition on suitable hardware. While the final model is deployed on a Raspberry Pi here, the same pipeline could serve as a starting point for deployment on more event-friendly / neuromorphic processors.
+Event-based sensing and SNNs are both driven by change rather than fixed frames; a combination of them might be a step toward low-power, real-time gesture recognition on suitable hardware. The broader goal in this project was to explore how this kind of model can be trained and adapted across embedded hardware platforms with different constraints, and how accuracy and efficiency trade off as those constraints tighten. While the final model here is deployed on a Raspberry Pi here, the same pipeline could serve as a starting point for deployment on more event-friendly / neuromorphic processors.
 
 This project was done during my summer internship at the University of Twente, under the supervision of Assistant Professor Amir Yousefzadeh. Thanks for the guidance and support throughout this project.
 
@@ -48,7 +48,7 @@ This project was done during my summer internship at the University of Twente, u
 - Before fine-tuning, the base model (trained only on DVS128Gesture) scored **~16%** on GenX320 data. Fine-tuning was necessary, not just a marginal improvement.
 - Inference latency: ~39ms/window (laptop CPU), ~370ms/window (Pi CPU), ~2.4ms/window (GPU). Real end-to-end latency on the Pi (live camera) is ~1.7s/prediction, since accumulating enough events takes longer than the inference itself.
 
-See [REPORT.md](REPORT:md) for full results and analysis.
+See [REPORT.md](REPORT.md) for full results and analysis.
 
 ## Known Limitations:
 
@@ -58,7 +58,7 @@ See [REPORT.md](REPORT:md) for full results and analysis.
 
 ## Future Work:
 
-- **Deployment on STM32**
+- **Adapting and deploying the model on other hardware**
 - **Enrich fine-tuning and testing data** — more clips, more subjects, more consistent recording conditions (see bias inconsistency above).
 
 ## Credits:
