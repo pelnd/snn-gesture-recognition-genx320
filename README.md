@@ -4,7 +4,7 @@ Welcome!
 
 This repository includes the development stages and final release of a spiking neural network(SNN) model for event-based hand gesture recognition, using real-time data from a Prophesee GenX320 event camera, deployed on a Raspberry Pi. 
 
-Event-based sensing and SNNs are both driven by change rather than fixed frames; a combination of them might be a step toward low-power, real-time gesture recognition on suitable hardware. The broader goal in this project was to explore how this kind of model can be trained and adapted across embedded hardware platforms with different constraints, and how accuracy and efficiency trade off as those constraints tighten. While the final model here is deployed on a Raspberry Pi here, the same pipeline could serve as a starting point for deployment on more event-friendly / neuromorphic processors.
+Event-based sensing and SNNs are both driven by change rather than fixed frames; a combination of them might be a step toward low-power, real-time gesture recognition on suitable hardware. The broader goal in this project was to explore how this kind of model can be trained and adapted across embedded hardware platforms with different constraints, and how accuracy and efficiency trade off as those constraints tighten. While the final model here is deployed on a Raspberry Pi, the same pipeline could serve as a starting point for deployment on more event-friendly / neuromorphic processors.
 
 This project was done during my summer internship at the University of Twente, under the supervision of Assistant Professor Amir Yousefzadeh. Thanks for the guidance and support throughout this project.
 
