@@ -8,6 +8,8 @@ Event-based sensing and SNNs are both driven by change rather than fixed frames;
 
 This project was done during my summer internship at the University of Twente, under the supervision of Assistant Professor Amir Yousefzadeh. Thanks for the guidance and support throughout this project.
 
+---
+
 ### Repository Structure:
 
 #### [REPORT.md](REPORT:md) :
