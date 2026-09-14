@@ -26,8 +26,8 @@ This project was done during my summer internship at the University of Twente, u
 
 ## Setup:
 
-**Training / evaluation** — any machine with Python 3.11+.
-**Live deployment** — Raspberry Pi 5 + Prophesee GenX320 event camera.
+**Training / evaluation**: any machine with Python 3.11+.
+**Live deployment**: Raspberry Pi 5 + Prophesee GenX320 event camera.
 
 **Software:**
 - python==3.11
@@ -35,7 +35,7 @@ This project was done during my summer internship at the University of Twente, u
 - spikingjelly==0.0.0.0.14
 - numpy==1.26.4
 - opencv-python==4.5.5.64
-- Metavision SDK (Prophesee) — needed only for camera access, install separately
+- Metavision SDK (Prophesee), needed only for camera access, install separately
 
 ## How to use:
 - To run the final model, see the README in [release/](release/).
@@ -45,18 +45,18 @@ This project was done during my summer internship at the University of Twente, u
 ## Results summary:
 
 - Fine-tuned model reaches **89.7%** accuracy on held-out test clips (92.1% excluding one ambiguous clip).
-- Before fine-tuning, the base model (trained only on DVS128Gesture) scored **~16%** on GenX320 data — fine-tuning was necessary, not just a marginal improvement.
+- Before fine-tuning, the base model (trained only on DVS128Gesture) scored **~16%** on GenX320 data. Fine-tuning was necessary, not just a marginal improvement.
 - Inference latency: ~39ms/window (laptop CPU), ~370ms/window (Pi CPU), ~2.4ms/window (GPU). Real end-to-end latency on the Pi (live camera) is ~1.7s/prediction, since accumulating enough events takes longer than the inference itself.
 
 See [REPORT.md](REPORT:md) for full results and analysis.
 
 ## Known Limitations:
 
-- **Bias inconsistency across finetuning data** — camera bias settings weren't fully controlled between sessions; one session may have used a different setting by accident.
-- **Held-out set is clip-held-out, not subject-held-out** — the 89.7% result shows generalization to new recordings of the same people, not to a new person.
-- **Small dataset** — fine-tuning data is ~250 clips total, which limits how far the results generalize.
+- **Bias inconsistency across finetuning data**: camera bias settings weren't fully controlled between sessions; one session may have used a different setting by accident.
+- **Held-out set is clip-held-out, not subject-held-out**: the 89.7% result shows generalization to new recordings of the same people, not to a new person.
+- **Small dataset**: fine-tuning data is ~250 clips total, which limits how far the results generalize.
 
 ## Credits:
-- [SpikingJelly](https://github.com/fangwei123456/spikingjelly) — SNN framework used for training and inference. The training scripts are based on their `classify_dvsg.py` example, heavily modified (see `third-party-licenses/`).
-- [DVS128Gesture](https://research.ibm.com/interactive/dvsgesture/) — base training dataset.
+- [SpikingJelly](https://github.com/fangwei123456/spikingjelly): SNN framework used for training and inference. The training scripts are based on their `classify_dvsg.py` example, heavily modified (see `third-party-licenses/`).
+- [DVS128Gesture](https://research.ibm.com/interactive/dvsgesture/): base training dataset.
 - Portions of the code and documentation in this repository were developed with the assistance of Claude (Anthropic).
