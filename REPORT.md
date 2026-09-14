@@ -1,5 +1,4 @@
 # snn-gesture-recognition-genx320 — Report
-## Contents
 
 - [Overview](#overview)
 - [Project Progression](#project-progression)
@@ -17,3 +16,36 @@
 - [Limitations](#limitations)
 - [Future Work](#future-work)
 - [Notes](#notes)
+
+## Overview
+
+## Project Progression
+
+### 1. Initial
+
+### 2. Split by Time
+
+### 3. Ceiling Ref
+
+### 4. Event Count
+
+### 5. Recording
+
+### 6. Event10k
+
+### 7. Finetuning
+
+### 8. Latency
+
+### 9. Environment Pi
+
+### 99. Accuracies / Domain Gap
+
+## Key Findings / Results
+
+## Limitations
+
+## Future Work
+
+## Notes
+
