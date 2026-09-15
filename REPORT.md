@@ -28,6 +28,8 @@ This report walks through the project chronologically, stage by stage (matching 
 ## Project Progression
 ### Preparation
 
+Before building a model, getting familiar with the framework and setting up the environment was crucial. The first stage of the project consisted of a literature review on SNNs and event-based data processing, followed by setting up the Raspberry Pi–Prophesee GenX320 connection via the Metavision SDK and preparing a virtual environment. SpikingJelly was chosen as the SNN framework, with PyTorch (2.13.0) and NumPy (1.26.4) installed at the versions recommended by SpikingJelly's documentation. OpenCV (4.5.5.64) was used for monitoring/visualization.
+
 ### 1. Initial Model ([1-Initial_Model](project-history/1-Initial_Model))
 
 ### 2. Split by Time ([2-Split_by_Time](project-history/2-Split_by_Time))
