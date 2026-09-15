@@ -28,25 +28,25 @@ This report walks through the project chronologically, stage by stage (matching 
 ## Project Progression
 ### Preparation
 
-### 1. Initial Model ([project-history/1-Initial_Model](../project-history/1-Initial_Model))
+### 1. Initial Model ([1-Initial_Model](project-history/1-Initial_Model))
 
-### 2. Split by Time ([project-history/2-Split_by_Time](../project-history/2-Split_by_Time))
+### 2. Split by Time ([2-Split_by_Time](project-history/2-Split_by_Time))
 
-### 3. Ceiling Ref ([project-history/3-Ceiling_Ref](../project-history/3-Ceiling_Ref))
+### 3. Ceiling Ref ([3-Ceiling_Ref](project-history/3-Ceiling_Ref))
 
-### 4. Event Count ([project-history/4-EventCount](../project-history/4-EventCount))
+### 4. Event Count ([4-EventCount](project-history/4-EventCount))
 
-### 5. Recording ([project-history/5-Recording](../project-history/5-Recording))
+### 5. Recording ([5-Recording](project-history/5-Recording))
 
-### 6. Event10k ([project-history/6-Event10k](../project-history/6-Event10k))
+### 6. Event10k ([6-Event10k](project-history/6-Event10k))
 
-### 7. Finetuning ([project-history/7-Finetuning](../project-history/7-Finetuning))
+### 7. Finetuning ([7-Finetuning](project-history/7-Finetuning))
 
-### 8. Latency ([project-history/8-Latency](../project-history/8-Latency))
+### 8. Latency ([8-Latency](project-history/8-Latency))
 
-### 9. Environment Pi ([project-history/9-EnvironmentPi](../project-history/9-EnvironmentPi))
+### 9. Environment Pi ([9-EnvironmentPi](project-history/9-EnvironmentPi))
 
-### 99. Accuracies / Domain Gap ([project-history/99-Accuracies_DomainGap](../project-history/99-Accuracies_DomainGap))
+### 99. Accuracies / Domain Gap ([99-Accuracies_DomainGap](project-history/99-Accuracies_DomainGap))
 
 ## Key Findings / Results
 
