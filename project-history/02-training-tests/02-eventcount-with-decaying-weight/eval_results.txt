@@ -1,0 +1,56 @@
+============================================================
+RUN CONFIG
+============================================================
+Run name:  count_decaying_weight
+Channels:  64
+T:         8
+Windowing: count-based (split_by="number")
+============================================================
+MODEL COMPLEXITY
+============================================================
+Parameters:  730,478
+Model size:  8.39 MB (on disk)
+The directory [D:\VsCode Projects\Staj 2026\spiking jelly\DVS  Gesture dataset\frames_number_8_split_by_number] already exists.
+test samples: 288
+
+============================================================
+ACCURACY
+============================================================
+Overall accuracy: 0.8438  (243/288)
+
+Per-class accuracy:
+  hand clap                     : 0.8750  (21/24)
+  right hand wave               : 0.9583  (23/24)
+  other gestures                : 1.0000  (24/24)
+  left hand wave                : 1.0000  (24/24)
+  right arm clockwise           : 0.9167  (22/24)
+  right arm counter clockwise   : 0.6667  (16/24)
+  left arm clockwise            : 0.6250  (15/24)
+  left arm counter clockwise    : 0.7500  (18/24)
+  arm rolls                     : 0.9583  (46/48)
+  air drums                     : 0.7083  (17/24)
+  air guitar                    : 0.7083  (17/24)
+
+============================================================
+CONFUSION MATRIX (rows=true, columns=predicted)
+============================================================
+            0    1    2    3    4    5    6    7    8    9   10
+true  0 |   21    0    0    0    0    0    0    0    2    0    1
+true  1 |    0   23    1    0    0    0    0    0    0    0    0
+true  2 |    0    0   24    0    0    0    0    0    0    0    0
+true  3 |    0    0    0   24    0    0    0    0    0    0    0
+true  4 |    0    0    1    0   22    1    0    0    0    0    0
+true  5 |    0    0    3    0    5   16    0    0    0    0    0
+true  6 |    0    0    1    0    0    0   15    8    0    0    0
+true  7 |    0    0    1    0    0    0    5   18    0    0    0
+true  8 |    2    0    0    0    0    0    0    0   46    0    0
+true  9 |    4    0    1    0    1    0    0    0    1   17    0
+true 10 |    1    0    5    0    0    0    0    0    0    1   17
+
+============================================================
+INFERENCE TIME (single sample, cpu)
+============================================================
+Mean:   124.61 ms
+Median: 90.11 ms
+Min:    63.05 ms
+Max:    788.88 ms
