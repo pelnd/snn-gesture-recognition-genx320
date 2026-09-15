@@ -1,0 +1,56 @@
+============================================================
+MODEL COMPLEXITY
+============================================================
+Parameters:  356,846
+Model size:  1.37 MB (on disk)
+
+============================================================
+ACCURACY (streaming pipeline)
+============================================================
+Overall accuracy: 0.6354  (183/288)
+
+Per-class accuracy:
+  hand clap                     : 0.5000  (12/24)
+  right hand wave               : 1.0000  (24/24)
+  other gestures                : 0.6667  (16/24)
+  left hand wave                : 0.9583  (23/24)
+  right arm clockwise           : 0.0833  (2/24)
+  right arm counter clockwise   : 0.8750  (21/24)
+  left arm clockwise            : 0.2917  (7/24)
+  left arm counter clockwise    : 0.6667  (16/24)
+  arm roll                      : 0.8750  (42/48)
+  air drums                     : 0.3333  (8/24)
+  air guitar                    : 0.5000  (12/24)
+
+============================================================
+CONFUSION MATRIX (rows=true, columns=predicted)
+============================================================
+            0    1    2    3    4    5    6    7    8    9   10
+true  0 |   12    0    0    1    0    0    0    1    9    0    1
+true  1 |    0   24    0    0    0    0    0    0    0    0    0
+true  2 |    2    3   16    0    0    2    0    0    0    1    0
+true  3 |    1    0    0   23    0    0    0    0    0    0    0
+true  4 |    0    2    0    0    2   20    0    0    0    0    0
+true  5 |    0    2    0    0    1   21    0    0    0    0    0
+true  6 |    0    0    0    3    0    0    7   14    0    0    0
+true  7 |    2    0    0    1    0    0    4   16    1    0    0
+true  8 |    5    0    0    0    0    0    0    0   42    1    0
+true  9 |    1    0    0    0    0    1    0    0   13    8    1
+true 10 |    1    0    1    0    0    1    1    2    5    1   12
+
+============================================================
+LATENCY (single sample, cpu)
+============================================================
+Net forward pass (same measurement as offline eval):
+  Mean:   145.48 ms
+  Median: 95.99 ms
+  Min:    30.11 ms
+  Max:    1339.26 ms
+
+Frame construction (events_to_frame loop, extra cost the offline eval doesn't pay):
+  Mean:   704.33 ms
+  Median: 612.64 ms
+  Min:    98.78 ms
+  Max:    3067.31 ms
+
+Combined mean (frame construction + inference): 849.81 ms per prediction
