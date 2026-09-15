@@ -31,6 +31,29 @@ This report walks through the project chronologically, stage by stage (matching 
 Before building a model, getting familiar with the framework and setting up the environment was crucial. The first stage of the project consisted of a literature review on SNNs and event-based data processing, followed by setting up the Raspberry Pi–Prophesee GenX320 connection via the Metavision SDK and preparing a virtual environment. The Raspberry Pi used was a Raspberry Pi 5 Model B, running Python 3.11.2 and was set up using Prophesee's custom Linux image (based on Raspberry Pi OS Bookworm), which comes with the RPi sensor driver and OpenEB precompiled. SpikingJelly was chosen as the SNN framework, with PyTorch (2.13.0) and NumPy (1.26.4) installed at the versions recommended by SpikingJelly's documentation. OpenCV (4.5.5.64) was added for monitoring/visualization.
 
 ### 1. Initial Model ([1-Initial_Model](project-history/1-Initial_Model))
+This is a tiny model along with the first working end-to-end pipeline, meant to establish training, evaluation, and live inference before scaling up to the actual training. 
+
+#### Training
+SpikingJelly's DVSGestureNet on DVS128Gesture was trained with reduced settings to keep it fast: 32 channels, 8 timesteps, batch size 2, 2 epochs. An event-count based windowing approach was preferred for robustness between DVS128 (used for base training) and GenX320 (the actual deployment camera), since fixed-time windows would capture very different numbers of events on each sensor. 
+
+#### Evaluation
+For this initial model two evaluation approaches were used: first a static evaluation against ready-made frames from the DVS128Gesture test set, and later a streaming evaluation that replays raw events through the same count-based windowing used for live inference. Only the streaming evaluation was used for the following stages.
+
+**Static evaluation** (full DVS128Gesture test set): 63.5% overall accuracy (183/288). Some classes did well (right hand wave 100%, left hand wave 96%), others poorly (right arm clockwise 8%, air drums 33%), which is expected for a 2-epoch test run.
+
+**Streaming (count-based windowing) evaluation** reproduced the exact same accuracy and confusion matrix as the static evaluation (183/288, identical per-cell), confirming the streaming windowing matches the offline run exactly. It also showed that frame construction (the event-to-frame loop) took ~704ms on average, far more than the ~145ms net inference, a sign that event-accumulation, not compute, would be the real-time bottleneck later in the project.
+
+#### Live Inference Pipeline
+A live inference pipeline was built to run on the Raspberry Pi: collecting event data from the GenX320 sensor, binning it into frames, and using the trained model weights to classify gestures.
+
+The first version (`pipeline_basic.py`) was a bare-minimum loop: open the camera, accumulate events into count-based frames, run inference, print the predicted class. This version performed poorly for a couple of reasons. The center-crop technique it used was flawed — discarding everything outside a fixed 128×128 window of the sensor's 320×320 output. The event-count mismatch between sensors was also huge: EVENTS_PER_FRAME was first set to 11,000, based on an average from DVS128 training clips, but on the GenX320 sensor that barely supplied any information, causing the model to collapse to predicting a single class.
+
+`pipeline_final.py` was built as an improved version. Event count was raised to 30,000, which performed noticeably better, at least producing varied predictions, even though accuracy remained low as expected. Center-crop was abandoned in favor of downscaling the full sensor frame instead. Diagnostics such as occ (occupancy, the fraction of pixels with any events), tot (average total events per frame), and per-window timing, along with a live cv2 visualization showing predicted class names, were also added.
+Camera bias was also introduced as a controllable variable, but the value initially used (-80) was later found to fail on this hardware, silently falling back to a prevailing default bias instead. The value was later fixed at 25/28, not because it improved accuracy, but because that happened to be the setting accidentally used to record some of the training clips, so keeping it kept the live pipeline consistent with the data.
+
+
+In summary, this stage established the full pipeline end-to-end — training, evaluation, and live inference — and surfaced the core problem that would shape the rest of the project: DVS128 and GenX320 differ enormously in event density, so windowing choices tuned for one sensor don't transfer to the other. Resolving that mismatch became the focus of the following stages.
+
 
 ### 2. Split by Time ([2-Split_by_Time](project-history/2-Split_by_Time))
 
