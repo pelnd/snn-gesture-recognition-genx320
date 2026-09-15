@@ -1,0 +1,56 @@
+============================================================
+RUN CONFIG
+============================================================
+Run name:  eventcount_10k
+Channels:  64
+T:         8
+Windowing: fixed event-count (N_EVENTS=10000)
+============================================================
+MODEL COMPLEXITY
+============================================================
+Parameters:  730,478
+Model size:  8.39 MB (on disk)
+building test windows...
+test samples: 1327  (from 288 recordings)
+
+============================================================
+ACCURACY
+============================================================
+Overall accuracy: 0.9457  (1255/1327)
+
+Per-class accuracy:
+  hand clap                     : 0.9143  (32/35)
+  right hand wave               : 1.0000  (70/70)
+  other gestures                : 0.9275  (128/138)
+  left hand wave                : 1.0000  (60/60)
+  right arm clockwise           : 0.9648  (192/199)
+  right arm counter clockwise   : 0.9828  (171/174)
+  left arm clockwise            : 1.0000  (149/149)
+  left arm counter clockwise    : 0.9930  (142/143)
+  arm rolls                     : 0.9624  (179/186)
+  air drums                     : 0.8523  (75/88)
+  air guitar                    : 0.6706  (57/85)
+
+============================================================
+CONFUSION MATRIX (rows=true, columns=predicted)
+============================================================
+            0    1    2    3    4    5    6    7    8    9   10
+true  0 |   32    0    0    0    0    0    0    0    0    3    0
+true  1 |    0   70    0    0    0    0    0    0    0    0    0
+true  2 |    0    1  128    1    1    1    1    0    0    2    3
+true  3 |    0    0    0   60    0    0    0    0    0    0    0
+true  4 |    0    0    7    0  192    0    0    0    0    0    0
+true  5 |    0    0    3    0    0  171    0    0    0    0    0
+true  6 |    0    0    0    0    0    0  149    0    0    0    0
+true  7 |    0    0    0    0    0    0    1  142    0    0    0
+true  8 |    0    0    3    0    0    0    0    0  179    2    2
+true  9 |    7    0    5    0    0    0    0    0    0   75    1
+true 10 |    0    0   25    0    0    0    0    0    0    3   57
+
+============================================================
+INFERENCE TIME (single sample, cpu)
+============================================================
+Mean:   45.15 ms
+Median: 41.47 ms
+Min:    31.44 ms
+Max:    111.69 ms
