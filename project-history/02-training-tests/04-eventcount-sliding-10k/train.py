@@ -46,10 +46,10 @@ PRINT_EVERY = 100
 NUM_WORKERS = 0
 
 CLASS_NAMES = [
-    'hand clap', 'right hand wave', 'left hand wave',
+    'hand clap', 'right hand wave','other gestures','left hand wave',
     'right arm clockwise', 'right arm counter clockwise',
     'left arm clockwise', 'left arm counter clockwise',
-    'arm roll', 'air drums', 'air guitar', 'other gestures',
+    'arm roll', 'air drums', 'air guitar'
 ]
 
 
