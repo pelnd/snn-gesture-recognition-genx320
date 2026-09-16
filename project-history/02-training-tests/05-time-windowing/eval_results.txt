@@ -1,0 +1,56 @@
+============================================================
+RUN CONFIG
+============================================================
+Run name:  time_windowing
+Channels:  64
+T:         8
+Duration:  125000 us
+============================================================
+MODEL COMPLEXITY
+============================================================
+Parameters:  730,478
+Model size:  8.39 MB (on disk)
+The directory [D:\VsCode Projects\Staj 2026\spiking jelly\DVS  Gesture dataset\duration_125000] already exists.
+test samples: 1853  (from 288 recordings)
+
+============================================================
+ACCURACY
+============================================================
+Overall accuracy: 0.9568  (1773/1853)
+
+Per-class accuracy:
+  hand clap                     : 0.9474  (108/114)
+  right hand wave               : 1.0000  (147/147)
+  other gestures                : 0.9286  (104/112)
+  left hand wave                : 1.0000  (139/139)
+  right arm clockwise           : 0.9695  (191/197)
+  right arm counter clockwise   : 0.9824  (167/170)
+  left arm clockwise            : 1.0000  (179/179)
+  left arm counter clockwise    : 1.0000  (167/167)
+  arm rolls                     : 0.9937  (313/315)
+  air drums                     : 0.8165  (129/158)
+  air guitar                    : 0.8323  (129/155)
+
+============================================================
+CONFUSION MATRIX (rows=true, columns=predicted)
+============================================================
+            0    1    2    3    4    5    6    7    8    9   10
+true  0 |  108    0    1    0    0    0    0    0    0    3    2
+true  1 |    0  147    0    0    0    0    0    0    0    0    0
+true  2 |    1    1  104    0    0    1    0    0    0    3    2
+true  3 |    0    0    0  139    0    0    0    0    0    0    0
+true  4 |    0    0    5    0  191    0    0    0    0    1    0
+true  5 |    0    0    3    0    0  167    0    0    0    0    0
+true  6 |    0    0    0    0    0    0  179    0    0    0    0
+true  7 |    0    0    0    0    0    0    0  167    0    0    0
+true  8 |    0    0    2    0    0    0    0    0  313    0    0
+true  9 |   22    0    3    0    1    0    0    0    1  129    2
+true 10 |    0    0   23    0    0    0    0    0    0    3  129
+
+============================================================
+INFERENCE TIME (single sample, cpu)
+============================================================
+Mean:   47.94 ms
+Median: 44.48 ms
+Min:    33.95 ms
+Max:    1127.48 ms
