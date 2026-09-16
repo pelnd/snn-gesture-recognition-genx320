@@ -82,6 +82,7 @@ This approach required deciding on a fixed event count before training. Measurin
 Below is a full breakdown of events-per-frame density per class.
 
 <div align="center">
+  
 | class | mean | p10 | p25 | median | p75 | p90 | min | max | n_frames |
 |---|---|---|---|---|---|---|---|---|---|
 | hand clap | 19542 | 8499 | 10865 | 15256 | 22960 | 33758 | 6329 | 70930 | 776 |
@@ -95,6 +96,7 @@ Below is a full breakdown of events-per-frame density per class.
 | air drums | 44843 | 22648 | 29818 | 44594 | 57472 | 68433 | 8764 | 109591 | 1568 |
 | air guitar | 42654 | 20089 | 30840 | 37657 | 49439 | 70678 | 10600 | 148042 | 784 |
 | other gestures | 27671 | 12432 | 18019 | 25522 | 34673 | 51431 | 5515 | 65588 | 784 |
+
 </div>
 
 This approach reached 94.57% accuracy (1,255/1,327 windows) on the test dataset, the best of the event-count runs. It is worth noting this approach supplied more windows per clip, possibly inflating the accuracy. Still, it's a solid number, and more importantly, its windowing already matched how the live pipeline builds frames, for a better match with deployment overall.  
