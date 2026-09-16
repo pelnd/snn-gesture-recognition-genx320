@@ -62,15 +62,15 @@ Building on the initial model from stage 1, this stage tests different windowing
 
 
 #### [Event-count base](project-history/02-training-tests/01-eventcount-base)
-This run continues directly from the initial model in stage 1, using the same event-count windowing (split_by='number') but scaling up the settings: 64 channels, T=8, batch size 16, 64 epochs.  
+This run continues directly from the initial model in stage 1, using the same event-count windowing (split_by='number') but scaling up the settings: 64 channels, T=8, batch size 16, 64 epochs.   
 It reached 90.62% accuracy (261/288) on the DVS128Gesture test set. Air drums and air guitar were the weakest classes, most often confused with each other and with "other gestures." This left room for improvement, so a few variations were explored next to see if accuracy could be pushed higher.
 
 #### [Weight decay](project-history/02-training-tests/02-eventcount-with-decaying-weight)
-Same config as the base run, but with weight decay (1e-4) added to the optimizer, to see if it would help avoid overfitting.
+Same config as the base run, but with weight decay (1e-4) added to the optimizer, to see if it would help avoid overfitting.  
 It didn't. Accuracy dropped to 84.38% (243/288), worse across most classes than the base run. Weight decay was dropped from later runs.
 
 #### [Jitter augmentation](project-history/02-training-tests/03-eventcount-jitter)
-Same base config, with a random per-sample pixel shift (±4px, same shift applied across all T frames) added as augmentation.
+Same base config, with a random per-sample pixel shift (±4px, same shift applied across all T frames) added as augmentation.  
 Accuracy rose to 92.71% (267/288), which was an improvement from previous runs, but still short of satisfying.
 
 
