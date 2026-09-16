@@ -17,7 +17,7 @@ from spikingjelly.activation_based.model import parametric_lif_net
 from spikingjelly.datasets.dvs128_gesture import DVS128Gesture
 
 DATA_DIR = './data/DVS128Gesture'
-RUN_NAME = 'time_windowing'
+RUN_NAME = 'ceiling_ref'
 MODEL_PATH = './weights-and-logs/checkpoint_best.pth'
 DEVICE = 'cpu'  
 T = 16
