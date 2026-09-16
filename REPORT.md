@@ -59,6 +59,11 @@ In summary, this stage established the full pipeline end-to-end — training, ev
 
 Building on the initial model from stage 1, this stage tests different windowing strategies and training variations before deciding on a model to carry forward. The tests include two windowing approaches: event-count-based (frames built from a fixed or per-recording-adaptive number of events) and time-based (frames built from fixed real-time durations). Event-count windowing was also tested with variations to compare accuracy.
 
+This run continues directly from the initial model in stage 1, using the same event-count windowing (split_by='number') — 64 channels, T=8, batch size 16, 64 epochs.  
+
+#### [Event-count base](project-history/02-training-tests/01-eventcount-base)
+It reached 90.62% accuracy (261/288) on the DVS128Gesture test set. Air drums and air guitar were the weakest classes, most often confused with each other and with "other gestures." This left room for improvement, so a few variations were explored next to see if accuracy could be pushed higher.
+
 
 
 
