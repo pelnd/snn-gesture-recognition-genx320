@@ -30,7 +30,7 @@ This report walks through the project chronologically, stage by stage (matching 
 
 Before building a model, getting familiar with the framework and setting up the environment was crucial. The first stage of the project consisted of a literature review on SNNs and event-based data processing, followed by setting up the Raspberry Pi–Prophesee GenX320 connection via the Metavision SDK and preparing a virtual environment. The Raspberry Pi used was a Raspberry Pi 5 Model B, running Python 3.11.2 and was set up using Prophesee's custom Linux image (based on Raspberry Pi OS Bookworm), which comes with the RPi sensor driver and OpenEB precompiled. SpikingJelly was chosen as the SNN framework, with PyTorch (2.13.0) and NumPy (1.26.4) installed at the versions recommended by SpikingJelly's documentation. OpenCV (4.5.5.64) was added for monitoring/visualization.
 
-### 1. Initial Model ([1-Initial_Model](project-history/1-Initial_Model))
+### 1. Initial Model ([1-test-model](project-history/1-test-model))
 This is a tiny model along with the first working end-to-end pipeline, meant to establish training, evaluation, and live inference before scaling up to the actual training. 
 
 #### Training
@@ -55,15 +55,14 @@ Camera bias was also introduced as a controllable variable, but the value initia
 In summary, this stage established the full pipeline end-to-end — training, evaluation, and live inference — and surfaced the core problem that would shape the rest of the project: DVS128 and GenX320 differ enormously in event density, so windowing choices tuned for one sensor don't transfer to the other. Resolving that mismatch became the focus of the following stages.
 
 
-### 2. Split by Time ([2-Split_by_Time](project-history/2-Split_by_Time))
+### 2. Training Experiments ([2-training-tests](project-history/2-training-tests))
 
-### 3. Ceiling Ref ([3-Ceiling_Ref](project-history/3-Ceiling_Ref))
 
-### 4. Event Count ([4-EventCount](project-history/4-EventCount))
+
+
+
 
 ### 5. Recording ([5-Recording](project-history/5-Recording))
-
-### 6. Event10k ([6-Event10k](project-history/6-Event10k))
 
 ### 7. Finetuning ([7-Finetuning](project-history/7-Finetuning))
 
