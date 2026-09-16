@@ -66,12 +66,19 @@ This run continues directly from the initial model in stage 1, using the same ev
 It reached 90.62% accuracy (261/288) on the DVS128Gesture test set. Air drums and air guitar were the weakest classes, most often confused with each other and with "other gestures." This left room for improvement, so a few variations were explored next to see if accuracy could be pushed higher.
 
 #### [Weight decay](project-history/02-training-tests/02-eventcount-with-decaying-weight)
-Same config as the base run, but with weight decay (1e-4) added to the optimizer, to see if it would help avoid overfitting.  
+Same base config, but with weight decay (1e-4) added to the optimizer, a small penalty that shrinks the weights slightly on every step, to see if it would help avoid overfitting.  
 It didn't. Accuracy dropped to 84.38% (243/288), worse across most classes than the base run. Weight decay was dropped from later runs.
 
 #### [Jitter augmentation](project-history/02-training-tests/03-eventcount-jitter)
 Same base config, with a random per-sample pixel shift (±4px, same shift applied across all T frames) added as augmentation.  
 Accuracy rose to 92.71% (267/288), which was an improvement from previous runs, but still short of satisfying.
+
+#### [Fixed-count sliding window (10k)](project-history/02-training-tests/04-eventcount-sliding-10k)
+Event-count windowing was revisited as a solution to the density mismatch. As expected, it did better than time-windowed on live deployment, but that still was not enough to resolve the density mismatch issue.
+The problem stemmed from something more fundamental: SpikingJelly's split_by='number' divided each recording into frames based on that recording's own total event count, so frame density still varied recording to recording during training, while live prediction always read a fixed absolute number of events per frame. To better match training with live inference, a new approach was tested: building frames from a fixed count of events instead during training, the same mechanism the live GenX320 pipeline uses.
+This approach required deciding on a fixed event count before training. Measuring events-per-frame per gesture class showed density varies about 3.8x across classes (right arm counter-clockwise highest, hand clap lowest). 10,000 events was chosen because it was close to the lowest classes' 10th-percentile density, keeping every class represented even after the fixed cutoff, at the cost of hand clap losing more samples than the rest.
+This approach reached 94.57% accuracy (1,255/1,327 windows) on the test dataset, the best of the event-count runs. It is worth noting this approach supplied more windows per clip, possibly inflating the accuracy. Still, it's a solid number, and more importantly, its windowing already matched how the live pipeline builds frames, for a better match with deployment overall.
+Two things stayed unresolved here: hand clap's slightly lower accuracy in this run traced directly to it losing the most samples to the fixed-count cutoff, being the lowest-density class. Air guitar's confusion with "other gestures," on the other hand, showed up across every windowing method tried and didn't trace to density or sample count, treated as a limitation rather than something to keep chasing.
 
 
 
