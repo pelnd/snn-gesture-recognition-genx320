@@ -57,6 +57,7 @@ In summary, this stage established the full pipeline end-to-end — training, ev
 
 ### 2. Training Experiments ([2-training-tests](project-history/2-training-tests))
 
+Building on the initial model from stage 1, this stage tests different windowing strategies and training variations before deciding on a model to carry forward. The tests include two windowing approaches: event-count-based (frames built from a fixed or per-recording-adaptive number of events) and time-based (frames built from fixed real-time durations). Event-count windowing was also tested with variations to compare accuracy.
 
 
 
