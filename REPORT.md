@@ -79,6 +79,21 @@ Event-count windowing was revisited as a solution to the density mismatch. As ex
 The problem stemmed from something more fundamental: SpikingJelly's split_by='number' divided each recording into frames based on that recording's own total event count, so frame density still varied recording to recording during training, while live prediction always read a fixed absolute number of events per frame. To better match training with live inference, a new approach was tested: building frames from a fixed count of events instead during training, the same mechanism the live GenX320 pipeline uses.  
 
 This approach required deciding on a fixed event count before training. Measuring events-per-frame per gesture class showed density varies about 3.8x across classes (right arm counter-clockwise highest, hand clap lowest). 10,000 events was chosen because it was close to the lowest classes' 10th-percentile density, keeping every class represented even after the fixed cutoff, at the cost of hand clap losing more samples than the rest.
+You can see the table below for a full breakdown of events-per-frame density per class.
+
+| class | mean | p10 | p25 | median | p75 | p90 | min | max | n_frames |
+|---|---|---|---|---|---|---|---|---|---|
+| hand clap | 19542 | 8499 | 10865 | 15256 | 22960 | 33758 | 6329 | 70930 | 776 |
+| right hand wave | 33059 | 12763 | 21753 | 31664 | 39344 | 51938 | 5122 | 95414 | 784 |
+| left hand wave | 51182 | 10102 | 25494 | 42364 | 67627 | 115182 | 4408 | 146724 | 784 |
+| right arm clockwise | 31356 | 11568 | 19663 | 26003 | 42837 | 59234 | 6631 | 80655 | 784 |
+| right arm counter clockwise | 74642 | 38702 | 49202 | 71954 | 95622 | 121329 | 13558 | 176462 | 784 |
+| left arm clockwise | 62951 | 32305 | 40357 | 58481 | 81826 | 97353 | 13714 | 199324 | 784 |
+| left arm counter clockwise | 58269 | 29244 | 36774 | 52270 | 75585 | 96904 | 10538 | 168107 | 784 |
+| arm roll | 52015 | 26540 | 34962 | 48659 | 69033 | 83544 | 11947 | 132300 | 792 |
+| air drums | 44843 | 22648 | 29818 | 44594 | 57472 | 68433 | 8764 | 109591 | 1568 |
+| air guitar | 42654 | 20089 | 30840 | 37657 | 49439 | 70678 | 10600 | 148042 | 784 |
+| other gestures | 27671 | 12432 | 18019 | 25522 | 34673 | 51431 | 5515 | 65588 | 784 |
 
 This approach reached 94.57% accuracy (1,255/1,327 windows) on the test dataset, the best of the event-count runs. It is worth noting this approach supplied more windows per clip, possibly inflating the accuracy. Still, it's a solid number, and more importantly, its windowing already matched how the live pipeline builds frames, for a better match with deployment overall.  
 
