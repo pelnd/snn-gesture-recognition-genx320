@@ -79,7 +79,7 @@ Event-count windowing was revisited as a solution to the density mismatch. As ex
 The problem stemmed from something more fundamental: SpikingJelly's split_by='number' divided each recording into frames based on that recording's own total event count, so frame density still varied recording to recording during training, while live prediction always read a fixed absolute number of events per frame. To better match training with live inference, a new approach was tested: building frames from a fixed count of events instead during training, the same mechanism the live GenX320 pipeline uses.  
 
 This approach required deciding on a fixed event count before training. Measuring events-per-frame per gesture class showed density varies about 3.8x across classes (right arm counter-clockwise highest, hand clap lowest). 10,000 events was chosen because it was close to the lowest classes' 10th-percentile density, keeping every class represented even after the fixed cutoff, at the cost of hand clap losing more samples than the rest.
-You can see the table below for a full breakdown of events-per-frame density per class.
+Below is a full breakdown of events-per-frame density per class.
 
 | class | mean | p10 | p25 | median | p75 | p90 | min | max | n_frames |
 |---|---|---|---|---|---|---|---|---|---|
