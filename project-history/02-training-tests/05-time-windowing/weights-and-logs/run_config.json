@@ -1,0 +1,9 @@
+{
+  "T": 8,
+  "duration": 125000,
+  "channels": 64,
+  "batch_size": 16,
+  "lr": 0.001,
+  "epochs": 64,
+  "run_name": "base_train"
+}
