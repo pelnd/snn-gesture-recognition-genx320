@@ -142,7 +142,7 @@ def main():
     print(f'loaded pretrained weights from {BASE_CHECKPOINT} '
           f'(base checkpoint epoch={checkpoint.get("epoch")}, max_test_acc={checkpoint.get("max_test_acc")})')
 
-    excluded_paths = load_excluded_paths(TEST_CLIPS_FILE)
+    excluded_paths = load_excluded_paths(TEST_CLIPS_FILE, RECORDINGS_DIR)
     print(f'excluding {len(excluded_paths)} held-out test clips from fine-tuning')
 
     print('building fine-tuning windows...')
