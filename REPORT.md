@@ -200,17 +200,14 @@ While re-recording, a HAL error was noticed: setting the bias values to -80/-80 
 A paired comparison found new-batch recordings ran 1.5-2.0x higher density than old-batch recordings, a real but not large effect. And since count-based windowing is inherently built to absorb this kind of variation, the density difference was considered small enough, and the project proceeded without re-recording.
 
 
+#### Finetuning
+The model was fine-tuned starting from the base event-count checkpoint (checkpoint_best_10k.pth), using the same event-count windowing at N_EVENTS=50,000, Adam with a lower learning rate. No validation split was used during training -- the only held-out data was the 33 test clips reserved specifically for the raw-vs-dedup comparison, and with only ~250 clips total.
 
+Training converged nicely over 16 epochs (train accuracy 65.2% -> 93.4%). On the held-out test set, it reached 89.74% (140/156 windows). Arm-rotation classes and air guitar hit 100%; the weak point was right hand wave at 60%, with every error going to hand clap. Watching the actual misclassified clips confirmed these were genuinely minimal, close-to-body waves: an inherently ambiguous motion. Excluding that one particularly ambiguous right-hand-wave clip brought the number to 92.11% (140/152).
 
-While re-recording, the recorder threw a HAL error failing to set the bias values to -80/-80 (the setting used for the original A/B recordings). A bias readback added after the .set() calls showed the camera consistently falling back to +25/+28 whenever -80 failed -- reproducible across sessions, and confirmed by Prophesee's bias documentation to be outside the sensor's valid range for GenX320-class devices.
+For the deduped finetuning run, N_EVENTS was set to 38000, estimated from the ~20-25% event-rate reduction measured earlier for combined dedup. Training converged more slowly and noisily, reaching 88.4% train accuracy by epoch 15 (vs. the raw run's 93.4%). On the held-out test set, it reached 85.07% (114/134 windows). Dedup already had some concerns: running it on the live event stream would add extra compute to a latency-constrained pipeline. Combined with the accuracy drop compared to raw (85.07% vs 89.74%), the approach was abandoned.
 
-This meant subjects recorded before and after this point could be at different bias states -- and subject B's session may have additionally run an earlier +20-bias script first, adding a third possible state. A paired comparison (same real subject, old batch vs re-recorded batch: A vs C, B vs D) found new-batch recordings ran 1.5-2.0x higher density than old-batch recordings across nearly every comparable class.
-
-The effect was real but not large -- similar in scale to the subject-style variance already found in the density analysis -- and count-based windowing is inherently density-agnostic by design, built specifically to absorb this kind of variation. Given time constraints, the dataset was not fully re-recorded to fix this; it is documented here as a known limitation rather than resolved.
-
-
-
-
+Raw data was carried forward as the better choice; dedup preprocessing is not recommended for future work.
 
 
 
@@ -220,12 +217,6 @@ The effect was real but not large -- similar in scale to the subject-style varia
 
 
 
-
-
-
-
-
-### 5. Recording ([5-Recording](project-history/5-Recording))
 
 ### 8. Latency ([8-Latency](project-history/8-Latency))
 
