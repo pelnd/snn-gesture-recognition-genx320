@@ -73,6 +73,12 @@ It didn't. Accuracy dropped to 84.38% (243/288), worse across most classes than 
 Same base config, with a random per-sample pixel shift (±4px, same shift applied across all T frames) added as augmentation.  
 Accuracy rose to 92.71% (267/288), which was an improvement from previous runs, but still short of satisfying. 
 
+#### [Split by time](project-history/02-training-tests/05-time-windowing)
+Looking for a higher accuracy, a different windowing strategy was tried next: splitting each recording into fixed 125ms time windows instead of counting events. Same base config otherwise — 64 channels, T=8, batch size 16, 64 epochs, no augmentation or weight decay.  
+It reached 95.68% accuracy (1,773/1,853 windows), the best result of any run so far on DVS128Gesture. Air drums (81.65%) and air guitar (83.23%) remained the weakest classes.
+
+Despite the higher accuracy here, this approach performed poorly once tested on the live inference pipeline with real GenX320 data, likely due to the large density mismatch between the two sensors.
+
 #### [Fixed-count sliding window (10k)](project-history/02-training-tests/04-eventcount-sliding-10k)
 Event-count windowing was revisited as a solution to the density mismatch. As expected, it did better than time-windowed on live deployment, but that still was not enough to resolve the density mismatch issue.  
 
