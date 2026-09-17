@@ -119,6 +119,10 @@ Across all six runs, the fixed-count event-count windowing (10k) was the one car
 
 ![Confusion matrices for all training-tests runs](project-history/02-training-tests/confusion_matrices.png)
 
+Training curves for the selected model are also shown below. Test accuracy sits around 92-95% while train accuracy approaches 100%, showing some overfitting.
+
+![Training and test loss/accuracy for the selected model (fixed-count sliding window, 10k)](project-history/02-training-tests/04-eventcount-sliding-10k/weights-and-logs/training_curves.png)
+
 
 
 
