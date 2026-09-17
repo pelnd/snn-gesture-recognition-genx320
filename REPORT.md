@@ -109,8 +109,17 @@ This approach reached 94.57% accuracy (1,255/1,327 windows) on the test dataset,
 
 Two things are worth noting here: hand clap didn't improve along with the rest of the classes in this run (91.43%, essentially unchanged from the base run's 91.67%, while most other classes climbed to 96-100%), consistent with it losing the most samples to the fixed-count cutoff as the lowest-density class. Air guitar remained the weakest class (67.06%), still most often confused with "other gestures", a recurring pattern across every method tried. Air drums and hand clap followed (85.23% and 91.43%), confused with each other in this run, likely because they are both low-density, similarly positioned gestures.
 
+#### [Ceiling reference](project-history/02-training-tests/06-ceiling-ref)
+By this point, event-count windowing looked like the strongest candidate for actual deployment. Still, one more run was made to check how much accuracy could be pushed. The best DVS128Gesture performer so far, time-windowing, was scaled up (128 channels, T=16) as a ceiling reference.  
+It reached 95.91% accuracy (820/855 windows), barely above split-by-time's 95.68%, despite 2.3x the parameters and roughly 4.5x the inference time. So it wasn't really improved.
+
+#### Final Decision
+
+Across all six runs, the fixed-count event-count windowing (10k) was the one carried forward: not the highest DVS128Gesture accuracy of the group, but the only approach whose windowing matched how the live GenX320 pipeline builds frames. Confusion matrices for all six runs are shown below.
 
 ![Confusion matrices for all training-tests runs](project-history/02-training-tests/confusion_matrices.png)
+
+
 
 
 
