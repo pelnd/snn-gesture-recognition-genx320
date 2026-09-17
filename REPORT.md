@@ -63,7 +63,7 @@ Building on the initial model from stage 1, this stage tests different windowing
 
 #### [Event-count base](project-history/02-training-tests/01-eventcount-base)
 This run continues directly from the initial model in stage 1, using the same event-count windowing (split_by='number') but scaling up the settings: 64 channels, T=8, batch size 16, 64 epochs.   
-It reached 90.62% accuracy (261/288) on the DVS128Gesture test set. Right arm clockwise was the weakest class (70.83%), mostly mistaken for its counter-clockwise counterpart. Air drums and air guitar were also weak, each most often confused with "other gestures". This left room for improvement, so a few variations were explored next to see if accuracy could be pushed higher.
+It reached 90.62% accuracy (261/288) on the DVS128Gesture test set. Right arm clockwise was the weakest class (70.83%), mostly mistaken for its counter-clockwise counterpart. Air drums and air guitar were also weak, and air guitar was most often confused with "other gestures". This left room for improvement, so a few variations were explored next to see if accuracy could be pushed higher.
 
 #### [Weight decay](project-history/02-training-tests/02-eventcount-with-decaying-weight)
 Same base config, but with weight decay (1e-4) added to the optimizer, a small penalty that shrinks the weights slightly on every step, to see if it would help avoid overfitting.  
@@ -71,7 +71,7 @@ It didn't. Accuracy dropped to 84.38% (243/288), worse across most classes than 
 
 #### [Jitter augmentation](project-history/02-training-tests/03-eventcount-jitter)
 Same base config, with a random per-sample pixel shift (±4px, same shift applied across all T frames) added as augmentation.  
-Accuracy rose to 92.71% (267/288), which was an improvement from previous runs, but still short of satisfying.
+Accuracy rose to 92.71% (267/288), which was an improvement from previous runs, but still short of satisfying. 
 
 #### [Fixed-count sliding window (10k)](project-history/02-training-tests/04-eventcount-sliding-10k)
 Event-count windowing was revisited as a solution to the density mismatch. As expected, it did better than time-windowed on live deployment, but that still was not enough to resolve the density mismatch issue.  
@@ -101,7 +101,10 @@ Below is a full breakdown of events-per-frame density per class.
 
 This approach reached 94.57% accuracy (1,255/1,327 windows) on the test dataset, the best of the event-count runs. It is worth noting this approach supplied more windows per clip, possibly inflating the accuracy. Still, it's a solid number, and more importantly, its windowing already matched how the live pipeline builds frames, for a better match with deployment overall.  
 
-Two things are worth noting here: hand clap didn't improve along with the rest of the classes in this run (91.43%, essentially unchanged from the base run's 91.67%, while most other classes climbed to 96-100%), consistent with it losing the most samples to the fixed-count cutoff as the lowest-density class. Air guitar remained the weakest class (67.06%), still most often confused with "other gestures", a recurring pattern across every method tried. Air drums and hand clap followed (85.23% and 91.43%), increasingly confused with each other in this run. Both are low-density, similarly-motioned gestures, and being low-density also meant losing more samples to the fixed-count cutoff than the rest.
+Two things are worth noting here: hand clap didn't improve along with the rest of the classes in this run (91.43%, essentially unchanged from the base run's 91.67%, while most other classes climbed to 96-100%), consistent with it losing the most samples to the fixed-count cutoff as the lowest-density class. Air guitar remained the weakest class (67.06%), still most often confused with "other gestures", a recurring pattern across every method tried. Air drums and hand clap followed (85.23% and 91.43%), confused with each other in this run, likely because they are both low-density, similarly positioned gestures.
+
+
+![Confusion matrices for all training-tests runs](project-history/02-training-tests/confusion_matrices.png)
 
 
 
