@@ -1,0 +1,34 @@
+class_idx,class_name,clip_path,n_windows,subject
+0,hand clap,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\D_class00_hand_clap\clip_007.npy,15,B
+0,hand clap,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\C_class00_hand_clap\clip_001.npy,5,A
+0,hand clap,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\D_class00_hand_clap\clip_009.npy,10,B
+1,right hand wave,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\C_class01_right_hand_wave\clip_002.npy,4,A
+1,right hand wave,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\B_class01_right_hand_wave\clip_011.npy,3,B
+1,right hand wave,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\C_class01_right_hand_wave\clip_003.npy,3,A
+2,other gestures,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\A_class02_other_gestures\clip_002.npy,6,A
+2,other gestures,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\B_class02_other_gestures\clip_010.npy,11,B
+2,other gestures,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\A_class02_other_gestures\clip_008.npy,4,A
+3,left hand wave,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\A_class03_left_hand_wave\clip_007.npy,3,A
+3,left hand wave,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\B_class03_left_hand_wave\clip_004.npy,3,B
+3,left hand wave,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\A_class03_left_hand_wave\clip_008.npy,3,A
+4,right arm clockwise,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\A_class04_right_arm_clockwise\clip_001.npy,4,A
+4,right arm clockwise,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\B_class04_right_arm_clockwise\clip_009.npy,7,B
+4,right arm clockwise,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\A_class04_right_arm_clockwise\clip_002.npy,3,A
+5,right arm counter clockwise,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\A_class05_right_arm_counter_clockwise\clip_009.npy,6,A
+5,right arm counter clockwise,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\B_class05_right_arm_counter_clockwise\clip_005.npy,5,B
+5,right arm counter clockwise,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\A_class05_right_arm_counter_clockwise\clip_010.npy,4,A
+6,left arm clockwise,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\A_class06_left_arm_clockwise\clip_003.npy,3,A
+6,left arm clockwise,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\B_class06_left_arm_clockwise\clip_005.npy,6,B
+6,left arm clockwise,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\A_class06_left_arm_clockwise\clip_013.npy,3,A
+7,left arm counter clockwise,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\A_class07_left_arm_counter_clockwise\clip_012.npy,4,A
+7,left arm counter clockwise,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\B_class07_left_arm_counter_clockwise\clip_005.npy,5,B
+7,left arm counter clockwise,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\A_class07_left_arm_counter_clockwise\clip_002.npy,2,A
+8,arm rolls,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\A_class08_arm_roll\clip_003.npy,3,A
+8,arm rolls,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\B_class08_arm_roll\clip_002.npy,6,B
+8,arm rolls,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\A_class08_arm_roll\clip_004.npy,3,A
+9,air drums,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\A_class09_air_drums\clip_002.npy,3,A
+9,air drums,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\B_class09_air_drums\clip_002.npy,3,B
+9,air drums,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\A_class09_air_drums\clip_003.npy,3,A
+10,air guitar,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\C_class10_air_guitar\clip_001.npy,5,A
+10,air guitar,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\D_class10_air_guitar\clip_001.npy,6,B
+10,air guitar,D:\VsCode Projects\Staj 2026\spiking jelly\finetuning_dataset\recordings\A_class10_air_guitar\clip_002.npy,2,A
