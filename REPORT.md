@@ -127,6 +127,55 @@ Full details and training curves for every run are available in [project-history
 
 ### 3. Finetuning (03-finetuning](project-history/03-finetuning))
 
+The model so far has never seen real GenX320 data, only DVS128Gesture, which causes a mismatch between training and deployment. This stage records real GenX320 gesture data and fine-tunes the model on it directly.
+
+#### Recording the dataset
+Gesture clips were recorded live from the GenX320 sensor. Sensor was placed at a desk height, and subjects performed the gestures in a seated position, around 1.5 meters away from the camera. Two subjects (A and B) were recorded initially, each providing around 10-15 usable clips per class. Subjects C and D were added later as additional recordings from A and B respectively.
+
+The dataset can be found in [genx320-data-for-finetuning](/data/genx320-data-for-finetuning).
+
+#### Analysis of the finetuning set [recording-analysis](project-history/03-finetuning/recording-analysis)
+An earlier check on GenX320 data had only looked at events per frame, not events per second. Ideally, we would want similar frames from both training and finetuning to be spanning similar duraitons of motion. With such a huge density gap, that's not possible. But we'd like to get close. 
+
+Real-time event densities of each class was computed both for DVS128Gesture and GenX320 data. The per-class density rankings proved to be similar, pointing at the right direction; however, absolute densities were 5-10x higher on GenX320 than on DVS128Gesture.
+
+<div align="center">
+
+| class | DVS p10 | DVS median | DVS p90 | GenX p10 | GenX median | GenX p90 | median ratio |
+|---|---|---|---|---|---|---|---|
+| hand clap | 13,919 | 25,199 | 49,128 | 166,772 | 198,177 | 288,961 | 7.9x |
+| right hand wave | 18,614 | 39,911 | 62,184 | 172,198 | 238,324 | 389,434 | 6.0x |
+| other gestures | 32,380 | 79,843 | 148,770 | 227,054 | 450,353 | 629,603 | 5.6x |
+| left hand wave | 14,593 | 35,422 | 64,996 | 189,386 | 255,141 | 389,651 | 7.2x |
+| right arm clockwise | 43,026 | 72,235 | 107,198 | 342,753 | 455,421 | 561,051 | 6.3x |
+| right arm counter clockwise | 43,202 | 74,020 | 121,742 | 301,826 | 413,235 | 596,851 | 5.6x |
+| left arm clockwise | 34,904 | 55,839 | 107,824 | 325,463 | 412,337 | 526,156 | 7.4x |
+| left arm counter clockwise | 35,304 | 57,609 | 103,871 | 305,291 | 423,016 | 475,121 | 7.3x |
+| arm rolls | 30,984 | 48,362 | 79,693 | 302,311 | 414,034 | 581,034 | 8.6x |
+| air drums | 29,463 | 45,227 | 85,565 | 283,171 | 354,089 | 490,693 | 7.8x |
+| air guitar | 19,059 | 33,559 | 62,740 | 212,449 | 296,323 | 416,548 | 8.8x |
+
+</div>
+
+
+
+
+
+
+
+
+An earlier check on GenX320 data had only looked at events per frame, not events per second, so this analysis measured real-time event density directly: raw event count divided by clip duration, per class and per subject.
+
+The per-class density ranking (p10-p90) matched DVS128Gesture's own ranking almost exactly -- hand clap and left hand wave were the lowest-density classes in both datasets, other gestures and the arm-rotation classes the highest in both. This confirmed the density pattern is a property of the gestures themselves, not a GenX320 recording artifact.
+
+Absolute density, however, was 5-10x higher on GenX320 than on DVS128Gesture -- the domain gap from stage 1, confirmed directly and found to be even larger than expected.
+
+This analysis also caught that left_arm_clockwise only had 17 clips for one subject, short of the 20-30 target, so more were recorded to fill the gap.
+
+Per-subject density showed subjects A and B were close in aggregate (355,823 vs 382,491 events/sec, about 7.5% apart) but diverged much more on individual classes -- air guitar, for example, was 252,483 events/sec for A vs 368,252 for B, a 46% difference. Subject style differences partly cancel out in aggregate but matter a lot per class.
+
+
+
 
 
 
