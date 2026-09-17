@@ -135,9 +135,9 @@ Gesture clips were recorded live from the GenX320 sensor. Sensor was placed at a
 The dataset can be found in [genx320-data-for-finetuning](/data/genx320-data-for-finetuning).
 
 #### Analysis of the finetuning set [recording-analysis](project-history/03-finetuning/recording-analysis)
-An earlier check on GenX320 data had only looked at events per frame, not events per second. Ideally, we would want similar frames from both training and finetuning to be spanning similar duraitons of motion. With such a huge density gap, that's not possible. But we'd like to get close. 
+An earlier check on GenX320 data had only looked at events per frame, not events per second. Ideally, frames from training and fine-tuning would span similar durations of motion. With a density gap this large, that was not fully achievable, but getting close was the goal. 
 
-Real-time event densities of each class was computed both for DVS128Gesture and GenX320 data. The per-class density rankings proved to be similar, pointing at the right direction; however, absolute densities were 5-10x higher on GenX320 than on DVS128Gesture.
+Real-time event density was computed per class for both DVS128Gesture and GenX320. The per-class rankings matched closely between the two, confirming the density differences come from the gestures themselves rather than the sensor. However, absolute density was 5-10x higher on GenX320 than on DVS128Gesture.
 
 <div align="center">
 
@@ -159,20 +159,62 @@ Real-time event densities of each class was computed both for DVS128Gesture and 
 
 
 
+#### Testing Deduplication of Events Approach
+As the event-densities showed,  using the same N_EVENTS = 10000 value on GenX320 would span too little real time per frame, frames would no longer represent a consistent motion. 
+
+For this reason, an approach of deduplicating events, merging spatially neighboring events and repeat firings from the same pixel close in time,  was tested as a way to shrink GenX320's event count without losing real temporal coverage. Temporal-only dedup (refractory suppression on repeat firings at native 320x320 resolution) reduced it by 11.6%; combined, the two together reduced it by 29.0%.
+
+Even combined, a 29% reduction fell far short of closing the density gap, dedup alone wasn't the fix. Still, a small held-out test set was set aside to directly compare a deduped fine-tuning run against a raw one, in case dedup helped in ways the density numbers alone didn't capture.
+
+
+#### Choosing N_EVENTS for Finetuning
+Picking N_EVENTS was an important task, since in an event-count based approach it's the number that determines what a frame captures. Initial goal was to keep motion duration per frame would stay consistent between training and fine-tuning, but that turned out infeasible: the density gap was too large, matching duration exactly would mean frames with far more raw events than the model was ever trained on, closer to training from scratch than fine-tuning. On top of that, the fine-tuning clips were recorded without this constraint in mind, and some didn't contain enough events to form all T frames.
+
+This left a tradeoff to find a sweet spot for: frame duration. 
+
+Based on the density gap and usable windows, two candidates were chosen for testing: 37k and 50k. Below is their duraiton table:
+
+<div align="center">
+
+| class | DVS p25 | DVS med | DVS p75 | 37k p25 | 37k med | 37k p75 | 50k p25 | 50k med | 50k p75 |
+|---|---|---|---|---|---|---|---|---|---|
+| hand clap | 0.260 | 0.360 | 0.508 | 0.110 | 0.155 | 0.185 | 0.151 | 0.212 | 0.257 |
+| right hand wave | 0.146 | 0.205 | 0.287 | 0.118 | 0.161 | 0.191 | 0.165 | 0.220 | 0.270 |
+| other gestures | 0.089 | 0.134 | 0.203 | 0.071 | 0.091 | 0.110 | 0.100 | 0.126 | 0.149 |
+| left hand wave | 0.146 | 0.220 | 0.289 | 0.104 | 0.147 | 0.180 | 0.155 | 0.189 | 0.238 |
+| right arm clockwise | 0.098 | 0.130 | 0.177 | 0.065 | 0.077 | 0.092 | 0.088 | 0.103 | 0.123 |
+| right arm counter clockwise | 0.084 | 0.132 | 0.162 | 0.076 | 0.093 | 0.103 | 0.100 | 0.123 | 0.138 |
+| left arm clockwise | 0.113 | 0.144 | 0.205 | 0.075 | 0.085 | 0.101 | 0.101 | 0.118 | 0.143 |
+| left arm counter clockwise | 0.119 | 0.155 | 0.215 | 0.069 | 0.088 | 0.107 | 0.093 | 0.126 | 0.148 |
+| arm rolls | 0.138 | 0.182 | 0.226 | 0.075 | 0.087 | 0.105 | 0.100 | 0.113 | 0.143 |
+| air drums | 0.142 | 0.190 | 0.242 | 0.091 | 0.114 | 0.120 | 0.124 | 0.149 | 0.163 |
+| air guitar | 0.180 | 0.243 | 0.324 | 0.095 | 0.129 | 0.150 | 0.140 | 0.171 | 0.201 |
+
+</div>
 
 
 
 
 
-An earlier check on GenX320 data had only looked at events per frame, not events per second, so this analysis measured real-time event density directly: raw event count divided by clip duration, per class and per subject.
 
-The per-class density ranking (p10-p90) matched DVS128Gesture's own ranking almost exactly -- hand clap and left hand wave were the lowest-density classes in both datasets, other gestures and the arm-rotation classes the highest in both. This confirmed the density pattern is a property of the gestures themselves, not a GenX320 recording artifact.
 
-Absolute density, however, was 5-10x higher on GenX320 than on DVS128Gesture -- the domain gap from stage 1, confirmed directly and found to be even larger than expected.
 
-This analysis also caught that left_arm_clockwise only had 17 clips for one subject, short of the 20-30 target, so more were recorded to fill the gap.
+Picking N_EVENTS by density percentile alone ignored a harder constraint: the total window duration (T x N_EVENTS / density) has to actually fit inside the recorded clips, which run a median of 2.3-2.8 seconds. At 150,000 events, for example, hand clap would need over 6 seconds per window -- more than double the average clip length, meaning most clips couldn't produce even one usable window.
 
-Per-subject density showed subjects A and B were close in aggregate (355,823 vs 382,491 events/sec, about 7.5% apart) but diverged much more on individual classes -- air guitar, for example, was 252,483 events/sec for A vs 368,252 for B, a 46% difference. Subject style differences partly cancel out in aggregate but matter a lot per class.
+Combining clip duration percentiles with density data pointed to roughly 37,000 events as a starting candidate. Checking windows-per-clip directly at 37k, 40k, and 50k showed 37k strictly outperforming 40k -- fewer clips with zero usable windows in every class, and more total windows overall, with no tradeoff either way.
+
+The deciding factor was matching duration, not event count: comparing GenX320's per-frame duration at each candidate N_EVENTS against DVS128Gesture's own per-frame duration at N_EVENTS=10,000 (what the base model was actually trained on) showed 37k undershooting the target duration by 40-60% across most classes, while 50k came much closer on every class. The cost was re-recording roughly 33 clips (mostly hand clap and left hand wave, the lowest-density classes) instead of 9 at 37k -- an acceptable tradeoff, so N_EVENTS was set to 50,000.
+
+Time-based windowing was considered again as an alternative, since it guarantees duration match directly. It was rejected for the same reason as in stage 2: it reintroduces frame saturation, the exact failure mode that broke a previously deployed model on GenX320. Count-based windowing avoids saturation by construction, and the duration mismatch it introduces is the solvable side of that tradeoff.
+
+
+
+
+
+
+
+
+
 
 
 
