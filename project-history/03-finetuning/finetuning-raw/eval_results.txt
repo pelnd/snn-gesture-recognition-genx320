@@ -1,4 +1,4 @@
-loaded checkpoint from ./checkpoints/finetune_genx320_raw_50k/checkpoint_latest.pth (epoch=15)
+loaded checkpoint from ./weights-and-logs/checkpoint_latest.pth (epoch=15)
 33 held-out test clips loaded
 156 test windows built
 
