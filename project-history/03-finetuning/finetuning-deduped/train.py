@@ -58,7 +58,9 @@ CLASS_NAMES = [
 ]
 
 
-def load_excluded_paths(test_clips_file):
+def load_excluded_paths(test_clips_file, recordings_dir):
+    # test_clips.txt are held out as a test set, so they must not be used
+    # for fine-tuning -- this builds the set of full paths to skip
     excluded = set()
     if not os.path.exists(test_clips_file):
         print(f'warning: {test_clips_file} not found, no clips excluded')
@@ -68,7 +70,7 @@ def load_excluded_paths(test_clips_file):
         for line in f:
             parts = line.strip().split(',')
             clip_path = parts[2]
-            excluded.add(os.path.normpath(clip_path))
+            excluded.add(os.path.normpath(os.path.join(recordings_dir, clip_path)))
     return excluded
 
 
@@ -170,7 +172,7 @@ def main():
     print(f'loaded pretrained weights from {BASE_CHECKPOINT} '
           f'(base checkpoint epoch={checkpoint.get("epoch")}, max_test_acc={checkpoint.get("max_test_acc")})')
 
-    excluded_paths = load_excluded_paths(TEST_CLIPS_FILE)
+    excluded_paths = load_excluded_paths(TEST_CLIPS_FILE, RECORDINGS_DIR)
     print(f'excluding {len(excluded_paths)} held-out test clips from fine-tuning')
 
     print('building deduped fine-tuning windows (this involves sorting every clip -- slower than the raw run)...')
