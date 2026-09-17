@@ -1,0 +1,35 @@
+=== per-class event density (events/sec) ===
+class                         clips       p10       p25    median       p75       p90  mean dur(s)
+hand clap                        26    166772    178754    198177    243716    288961         2.57
+right hand wave                  26    172198    187987    238324    329393    389434         2.39
+other gestures                   26    227054    305515    450353    532068    629603         3.15
+left hand wave                   28    189386    216673    255141    326234    389651         2.75
+right arm clockwise              27    342753    399068    455421    540579    561051         2.57
+right arm counter clockwise      25    301826    376437    413235    474388    596851         2.92
+left arm clockwise               24    325463    377050    412337    491053    526156         2.94
+left arm counter clockwise       24    305291    361245    423016    458896    475121         2.30
+arm rolls                        24    302311    376789    414034    498264    581034         2.70
+air drums                        24    283171    316693    354089    395190    490693         2.28
+air guitar                       23    212449    238016    296323    337474    416548         2.54
+
+=== per-subject clip counts ===
+  A: 160 clips total
+  B: 117 clips total
+
+=== per-subject event density, overall (events/sec) ===
+  A: mean=355823  median=346857  n=160
+  B: mean=382491  median=381288  n=117
+
+=== per-subject event density, per class (mean events/sec) ===
+class                                    A             B
+hand clap                           209015        223428
+right hand wave                     264196        261712
+other gestures                      401897        513951
+left hand wave                      325880        225949
+right arm clockwise                 449777        466639
+right arm counter clockwise         424218        436968
+left arm clockwise                  409201        471418
+left arm counter clockwise          398800        414795
+arm rolls                           401916        498791
+air drums                           345574        418840
+air guitar                          252483        368252
