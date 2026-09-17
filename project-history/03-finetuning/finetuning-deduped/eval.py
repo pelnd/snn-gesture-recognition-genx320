@@ -19,6 +19,7 @@ from torch.utils.data import DataLoader
 from spikingjelly.activation_based import functional, surrogate, neuron
 from spikingjelly.activation_based.model import parametric_lif_net
 
+RECORDINGS_DIR = '../../../data/genx320-data-for-finetuning'
 TEST_CLIPS_FILE = '../test_clips.txt'
 CHECKPOINT_PATH = './weights-and-logs/checkpoint_latest.pth'
 
@@ -77,12 +78,13 @@ def frame_from_binned(x_bin, y_bin, p):
     return frame
 
 
-def load_test_clips(test_clips_file):
+def load_test_clips(test_clips_file, recordings_dir):
     clips = []
     with open(test_clips_file, 'r') as f:
         reader = csv.DictReader(f)
         for row in reader:
-            clips.append((row['clip_path'], int(row['class_idx'])))
+            clip_path = os.path.normpath(os.path.join(recordings_dir, row['clip_path']))
+            clips.append((clip_path, int(row['class_idx'])))
     return clips
 
 
@@ -135,7 +137,7 @@ def main():
     net.eval()
     print(f'loaded checkpoint from {CHECKPOINT_PATH} (epoch={checkpoint.get("epoch")})')
 
-    test_clips = load_test_clips(TEST_CLIPS_FILE)
+    test_clips = load_test_clips(TEST_CLIPS_FILE, RECORDINGS_DIR)
     print(f'{len(test_clips)} held-out test clips loaded')
 
     test_set = TestWindowDataset(test_clips, T=T, n_events=N_EVENTS)
