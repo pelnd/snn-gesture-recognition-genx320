@@ -1,0 +1,32 @@
+loaded checkpoint from ./checkpoints/finetune_genx320_raw_50k/checkpoint_latest.pth (epoch=15)
+33 held-out test clips loaded
+156 test windows built
+
+overall test accuracy: 140/156 = 0.8974
+
+class                         correct    total   accuracy
+hand clap                          26       30     0.8667
+right hand wave                     6       10     0.6000
+other gestures                     17       21     0.8095
+left hand wave                      8        9     0.8889
+right arm clockwise                14       14     1.0000
+right arm counter clockwise        15       15     1.0000
+left arm clockwise                 10       12     0.8333
+left arm counter clockwise         11       11     1.0000
+arm rolls                          12       12     1.0000
+air drums                           8        9     0.8889
+air guitar                         13       13     1.0000
+
+confusion matrix (rows=true, cols=predicted)
+                              hand  righ  othe  left  righ  righ  left  left  arm   air   air 
+hand clap                       26     0     2     0     0     1     0     0     0     1     0
+right hand wave                  4     6     0     0     0     0     0     0     0     0     0
+other gestures                   0     0    17     0     0     0     0     0     4     0     0
+left hand wave                   0     0     0     8     0     0     1     0     0     0     0
+right arm clockwise              0     0     0     0    14     0     0     0     0     0     0
+right arm counter clockwise      0     0     0     0     0    15     0     0     0     0     0
+left arm clockwise               0     0     0     0     0     0    10     2     0     0     0
+left arm counter clockwise       0     0     0     0     0     0     0    11     0     0     0
+arm rolls                        0     0     0     0     0     0     0     0    12     0     0
+air drums                        0     0     1     0     0     0     0     0     0     8     0
+air guitar                       0     0     0     0     0     0     0     0     0     0    13
