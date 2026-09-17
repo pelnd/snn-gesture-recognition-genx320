@@ -19,6 +19,7 @@ from spikingjelly.activation_based.model import parametric_lif_net
 
 TEST_CLIPS_FILE = '../test_clips.txt'
 CHECKPOINT_PATH = './weights-and-logs/checkpoint_latest.pth'
+RECORDINGS_DIR = '../../../data/genx320-data-for-finetuning'
 
 DEVICE = 'cpu'  # switch to 'cuda' if running on the GPU machine
 T = 8
@@ -48,13 +49,13 @@ def events_to_frame(x, y, p, h=H, w=W):
     return frame
 
 
-def load_test_clips(test_clips_file):
-    # returns list of (clip_path, class_idx)
+def load_test_clips(test_clips_file, recordings_dir):
     clips = []
     with open(test_clips_file, 'r') as f:
         reader = csv.DictReader(f)
         for row in reader:
-            clips.append((row['clip_path'], int(row['class_idx'])))
+            clip_path = os.path.normpath(os.path.join(recordings_dir, row['clip_path']))
+            clips.append((clip_path, int(row['class_idx'])))
     return clips
 
 
@@ -104,7 +105,7 @@ def main():
     net.eval()
     print(f'loaded checkpoint from {CHECKPOINT_PATH} (epoch={checkpoint.get("epoch")})')
 
-    test_clips = load_test_clips(TEST_CLIPS_FILE)
+    test_clips = load_test_clips(TEST_CLIPS_FILE, RECORDINGS_DIR)
     print(f'{len(test_clips)} held-out test clips loaded')
 
     test_set = TestWindowDataset(test_clips, T=T, n_events=N_EVENTS)
