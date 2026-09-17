@@ -54,7 +54,9 @@ CLASS_NAMES = [
 ]
 
 
-def load_excluded_paths(test_clips_file):
+def load_excluded_paths(test_clips_file, recordings_dir):
+    # test_clips.txt are held out as a test set, so they must not be used
+    # for fine-tuning -- this builds the set of full paths to skip
     excluded = set()
     if not os.path.exists(test_clips_file):
         print(f'warning: {test_clips_file} not found, no clips excluded')
@@ -64,7 +66,7 @@ def load_excluded_paths(test_clips_file):
         for line in f:
             parts = line.strip().split(',')
             clip_path = parts[2]
-            excluded.add(os.path.normpath(clip_path))
+            excluded.add(os.path.normpath(os.path.join(recordings_dir, clip_path)))
     return excluded
 
 
