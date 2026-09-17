@@ -123,6 +123,8 @@ Training curves for the selected model are also shown below. Test accuracy sits 
 
 ![Training and test loss/accuracy for the selected model (fixed-count sliding window, 10k)](project-history/02-training-tests/04-eventcount-sliding-10k/weights-and-logs/training_curves.png)
 
+Full details and training curves for every run are available in [project-history](project-history/02-training-tests).
+
 
 
 
