@@ -158,7 +158,6 @@ Real-time event density was computed per class for both DVS128Gesture and GenX32
 </div>
 
 
-
 #### Testing Deduplication of Events Approach
 As the event-densities showed,  using the same N_EVENTS = 10000 value on GenX320 would span too little real time per frame, frames would no longer represent a consistent motion. 
 
@@ -172,7 +171,7 @@ Picking N_EVENTS was an important task, since in an event-count based approach i
 
 This left a tradeoff to find a sweet spot for: frame duration. 
 
-Based on the density gap and usable windows, two candidates were chosen for testing: 37k and 50k. Below is their duraiton table:
+Based on the density gap and usable windows, two candidates were chosen: 37k and 50k. Below is their duraiton table:
 
 <div align="center">
 
@@ -193,19 +192,24 @@ Based on the density gap and usable windows, two candidates were chosen for test
 </div>
 
 
+Neither candidate was close to matching DVS128's frame duration, that's the tradeoff described above. Re-recording clips to be longer was considered, but it was a fair amount of work. 50k was chosen because it was higher, with a manageable number of clips needing to be re-recorded.
+
+#### Bias Inconsistency Problem
+While re-recording, a HAL error was noticed: setting the bias values to -80/-80 failed, since that was outside the sensor's valid range. This probably affected the earlier recording sessions as well. At the time of re-recording, bias read back as 25/28, but the value used for subjects A and B is unknown. 25/28 was set for recordings going forward, as that is the one value confirmed to have actually been used while recording.
+
+A paired comparison found new-batch recordings ran 1.5-2.0x higher density than old-batch recordings, a real but not large effect. And since count-based windowing is inherently built to absorb this kind of variation, the density difference was considered small enough, and the project proceeded without re-recording.
 
 
 
 
+While re-recording, the recorder threw a HAL error failing to set the bias values to -80/-80 (the setting used for the original A/B recordings). A bias readback added after the .set() calls showed the camera consistently falling back to +25/+28 whenever -80 failed -- reproducible across sessions, and confirmed by Prophesee's bias documentation to be outside the sensor's valid range for GenX320-class devices.
+
+This meant subjects recorded before and after this point could be at different bias states -- and subject B's session may have additionally run an earlier +20-bias script first, adding a third possible state. A paired comparison (same real subject, old batch vs re-recorded batch: A vs C, B vs D) found new-batch recordings ran 1.5-2.0x higher density than old-batch recordings across nearly every comparable class.
+
+The effect was real but not large -- similar in scale to the subject-style variance already found in the density analysis -- and count-based windowing is inherently density-agnostic by design, built specifically to absorb this kind of variation. Given time constraints, the dataset was not fully re-recorded to fix this; it is documented here as a known limitation rather than resolved.
 
 
-Picking N_EVENTS by density percentile alone ignored a harder constraint: the total window duration (T x N_EVENTS / density) has to actually fit inside the recorded clips, which run a median of 2.3-2.8 seconds. At 150,000 events, for example, hand clap would need over 6 seconds per window -- more than double the average clip length, meaning most clips couldn't produce even one usable window.
 
-Combining clip duration percentiles with density data pointed to roughly 37,000 events as a starting candidate. Checking windows-per-clip directly at 37k, 40k, and 50k showed 37k strictly outperforming 40k -- fewer clips with zero usable windows in every class, and more total windows overall, with no tradeoff either way.
-
-The deciding factor was matching duration, not event count: comparing GenX320's per-frame duration at each candidate N_EVENTS against DVS128Gesture's own per-frame duration at N_EVENTS=10,000 (what the base model was actually trained on) showed 37k undershooting the target duration by 40-60% across most classes, while 50k came much closer on every class. The cost was re-recording roughly 33 clips (mostly hand clap and left hand wave, the lowest-density classes) instead of 9 at 37k -- an acceptable tradeoff, so N_EVENTS was set to 50,000.
-
-Time-based windowing was considered again as an alternative, since it guarantees duration match directly. It was rejected for the same reason as in stage 2: it reintroduces frame saturation, the exact failure mode that broke a previously deployed model on GenX320. Count-based windowing avoids saturation by construction, and the duration mismatch it introduces is the solvable side of that tradeoff.
 
 
 
