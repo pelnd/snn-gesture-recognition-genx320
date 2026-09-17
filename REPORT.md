@@ -30,7 +30,7 @@ This report walks through the project chronologically, stage by stage (matching 
 
 Before building a model, getting familiar with the framework and setting up the environment was crucial. The first stage of the project consisted of a literature review on SNNs and event-based data processing, followed by setting up the Raspberry Pi–Prophesee GenX320 connection via the Metavision SDK and preparing a virtual environment. The Raspberry Pi used was a Raspberry Pi 5 Model B, running Python 3.11.2 and was set up using Prophesee's custom Linux image (based on Raspberry Pi OS Bookworm), which comes with the RPi sensor driver and OpenEB precompiled. SpikingJelly was chosen as the SNN framework, with PyTorch (2.13.0) and NumPy (1.26.4) installed at the versions recommended by SpikingJelly's documentation. OpenCV (4.5.5.64) was added for monitoring/visualization.
 
-### 1. Initial Model ([1-test-model](project-history/1-test-model))
+### 1. Initial Model ([01-test-model](project-history/01-test-model))
 This is a tiny model along with the first working end-to-end pipeline, meant to establish training, evaluation, and live inference before scaling up to the actual training. 
 
 #### Training
@@ -55,7 +55,7 @@ Camera bias was also introduced as a controllable variable, but the value initia
 In summary, this stage established the full pipeline end-to-end — training, evaluation, and live inference — and surfaced the core problem that would shape the rest of the project: DVS128 and GenX320 differ enormously in event density, so windowing choices tuned for one sensor don't transfer to the other. Resolving that mismatch became the focus of the following stages.
 
 
-### 2. Training Experiments ([2-training-tests](project-history/2-training-tests))
+### 2. Training Experiments ([02-training-tests](project-history/02-training-tests))
 
 Building on the initial model from stage 1, this stage tests different windowing strategies and training variations before deciding on a model to carry forward. The tests include two windowing approaches: event-count-based (frames built from a fixed or per-recording-adaptive number of events) and time-based (frames built from fixed real-time durations). Event-count windowing was also tested with variations to compare accuracy.
 
@@ -125,14 +125,12 @@ Training curves for the selected model are also shown below. Test accuracy sits 
 
 Full details and training curves for every run are available in [project-history](project-history/02-training-tests).
 
-
+### 3. Finetuning (03-finetuning](project-history/03-finetuning))
 
 
 
 
 ### 5. Recording ([5-Recording](project-history/5-Recording))
-
-### 7. Finetuning ([7-Finetuning](project-history/7-Finetuning))
 
 ### 8. Latency ([8-Latency](project-history/8-Latency))
 
