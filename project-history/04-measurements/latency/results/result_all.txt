@@ -1,0 +1,24 @@
+device=cuda  gpu=NVIDIA GeForce RTX 4060 Ti  run_on=all
+loaded ./checkpoints/finetune_genx320_raw_50k/checkpoint_latest.pth (dict-wrapped checkpoint, epoch=15, train_acc=0.93359375)
+33 held-out clips listed in ./test_clips.txt
+clips used: 267, clips skipped (not enough events for one window): 33
+676 windows to measure (all)
+  window 0/676  latency=4617.86ms
+  window 50/676  latency=2.40ms
+  window 100/676  latency=2.40ms
+  window 150/676  latency=2.39ms
+  window 200/676  latency=2.47ms
+  window 250/676  latency=2.39ms
+  window 300/676  latency=2.39ms
+  window 350/676  latency=2.42ms
+  window 400/676  latency=2.40ms
+  window 450/676  latency=2.39ms
+  window 500/676  latency=2.41ms
+  window 550/676  latency=2.40ms
+  window 600/676  latency=2.41ms
+  window 650/676  latency=2.42ms
+
+=== all results, device=cuda ===
+windows measured: 676
+latency: median=2.41ms  mean=9.24ms  std=177.39ms  min=2.37ms  max=4617.86ms
+per-window log saved to ./latency_all_gpu.csv

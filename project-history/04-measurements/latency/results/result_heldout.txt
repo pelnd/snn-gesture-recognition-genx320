@@ -1,0 +1,15 @@
+device=cuda  gpu=NVIDIA GeForce RTX 4060 Ti  run_on=heldout
+loaded ./checkpoints/finetune_genx320_raw_50k/checkpoint_latest.pth (dict-wrapped checkpoint, epoch=15, train_acc=0.93359375)
+33 held-out clips listed in ./test_clips.txt
+clips used: 33, clips skipped (not enough events for one window): 0
+156 windows to measure (heldout)
+  window 0/156  latency=5429.24ms
+  window 50/156  latency=2.40ms
+  window 100/156  latency=2.40ms
+  window 150/156  latency=2.40ms
+
+=== heldout results, device=cuda ===
+windows measured: 156
+latency: median=2.41ms  mean=37.21ms  std=433.10ms  min=2.38ms  max=5429.24ms
+sanity-check accuracy: 140/156 = 89.7%  (compare against 89.7% / 140/156 from the GPU eval)
+per-window log saved to ./latency_heldout_gpu.csv
