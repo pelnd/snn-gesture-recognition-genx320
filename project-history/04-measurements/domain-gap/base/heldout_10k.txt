@@ -1,0 +1,21 @@
+model=base  clip_set=heldout  N_EVENTS=10000
+loaded ./checkpoints/base_train_eventcount_10k/checkpoint_best.pth (epoch=45)
+33 clips loaded
+837 windows built
+
+overall accuracy: 145/837 = 0.1732
+
+class                         correct    total   accuracy
+hand clap                           0      156     0.0000
+right hand wave                     0       54     0.0000
+other gestures                    115      115     1.0000
+left hand wave                      1       52     0.0192
+right arm clockwise                 0       73     0.0000
+right arm counter clockwise         0       80     0.0000
+left arm clockwise                  0       68     0.0000
+left arm counter clockwise          0       56     0.0000
+arm rolls                           0       64     0.0000
+air drums                           1       47     0.0213
+air guitar                         28       72     0.3889
+
+appended result row to ./domain_gap_results.csv
