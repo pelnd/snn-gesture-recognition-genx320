@@ -209,7 +209,33 @@ For the deduped finetuning run, N_EVENTS was set to 38000, estimated from the ~2
 
 Raw data was carried forward as the better choice; dedup preprocessing is not recommended for future work.
 
+### 4. Measurements (04-measurements](project-history/04-measurements))
+With the raw fine-tuned model ready, it was deployed on the Raspberry Pi and, in casual live use, seemed to work well, but that's just an impression, not something a live demo can actually quantify. To get real numbers, two things were measured instead: a domain-gap baseline against the original, un-finetuned model, and latency benchmarks on the Pi itself.
 
+#### Domain-gap baseline ([04-measurements/domain-gap](project-history/04-measurements/domain-gap))
+To quantify how much fine-tuning actually mattered, the base model (trained only on DVS128Gesture) was evaluated on GenX320 recordings, both the full fine-tuning clip set and the held-out test clips. The tests were run at two different event-counts: 10000 and 50000, the values used for base training and fine-tuning respectively.
+
+<div align="center">
+
+| model | clip set | N_EVENTS | correct/total | accuracy |
+|---|---|---|---|---|
+| base | all clips | 50,000 | 110/676 | 16.27% |
+| base | all clips | 10,000 | 628/3921 | 16.02% |
+| base | held-out | 50,000 | 25/156 | 16.03% |
+| base | held-out (excl. ambiguous clip) | 50,000 | 25/152 | 16.45% |
+| base | held-out | 10,000 | 145/837 | 17.32% |
+| fine-tuned | held-out | 50,000 | 140/156 | 89.74% |
+| fine-tuned | held-out (excl. ambiguous clip) | 50,000 | 140/152 | 92.11% |
+
+</div>
+
+The base model sits at roughly 16-17% regardless of clip set or windowing, the domain gap seems to be bigger than any effect windowing choice might have. Excluding the ambiguous clip had also no effect since the prediction was wrong regardless.
+
+Looking at per-class predictions on the full recording set explains why: the base model collapses to almost always predicting `other gestures`, hitting 100% (94/94) on that class alone while scoring near 0% everywhere else, with partial hits only on air drums (21%) and air guitar (14%). `other gestures`, air drums, and air guitar are exactly the highest-density classes found in the earlier density analysis, so the model isn't discriminating gestures on GenX320 data at all, it's defaulting to whichever class its DVS128-trained weights associate with dense, saturated input.
+
+Fine-tuning took the model from ~16% to 89.74% (92.11% excluding the ambiguous clip), a large, clean improvement that confirms fine-tuning on real GenX320 data was fundamental.
+
+#### Latency ([04-measurements/latency](project-history/04-measurements/latency))
 
 
 
