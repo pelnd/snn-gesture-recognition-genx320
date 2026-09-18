@@ -1,0 +1,15 @@
+device=cpu  torch CPU threads=16  run_on=heldout
+loaded ./checkpoints/finetune_genx320_raw_50k/checkpoint_latest.pth (dict-wrapped checkpoint, epoch=15, train_acc=0.93359375)
+33 held-out clips listed in ./test_clips.txt
+clips used: 33, clips skipped (not enough events for one window): 0
+156 windows to measure (heldout)
+  window 0/156  latency=145.96ms
+  window 50/156  latency=39.12ms
+  window 100/156  latency=35.07ms
+  window 150/156  latency=43.32ms
+
+=== heldout results, device=cpu ===
+windows measured: 156
+latency: median=39.39ms  mean=43.42ms  std=16.98ms  min=32.29ms  max=150.41ms
+sanity-check accuracy: 140/156 = 89.7%  (compare against 89.7% / 140/156 from the GPU eval)
+per-window log saved to ./latency_heldout_laptop.csv

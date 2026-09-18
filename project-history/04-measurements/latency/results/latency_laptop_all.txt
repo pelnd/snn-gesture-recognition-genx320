@@ -1,0 +1,24 @@
+device=cpu  torch CPU threads=16  run_on=all
+loaded ./checkpoints/finetune_genx320_raw_50k/checkpoint_latest.pth (dict-wrapped checkpoint, epoch=15, train_acc=0.93359375)
+33 held-out clips listed in ./test_clips.txt
+clips used: 267, clips skipped (not enough events for one window): 33
+676 windows to measure (all)
+  window 0/676  latency=177.07ms
+  window 50/676  latency=35.69ms
+  window 100/676  latency=40.11ms
+  window 150/676  latency=56.45ms
+  window 200/676  latency=42.21ms
+  window 250/676  latency=34.47ms
+  window 300/676  latency=34.97ms
+  window 350/676  latency=39.20ms
+  window 400/676  latency=40.46ms
+  window 450/676  latency=35.85ms
+  window 500/676  latency=35.01ms
+  window 550/676  latency=44.61ms
+  window 600/676  latency=50.00ms
+  window 650/676  latency=34.83ms
+
+=== all results, device=cpu ===
+windows measured: 676
+latency: median=38.53ms  mean=41.62ms  std=13.57ms  min=32.68ms  max=264.53ms
+per-window log saved to ./latency_all_laptop.csv
