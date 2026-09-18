@@ -1,4 +1,4 @@
-# snn-gesture-recognition-genx320 — Report
+# snn-gesture-recognition-genx320 - Report
 
 - [Overview](#overview)
 - [Project Progression](#project-progression)
