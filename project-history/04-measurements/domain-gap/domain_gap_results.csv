@@ -1,0 +1,11 @@
+model,clip_set,n_events,n_excluded_clips,correct,total,accuracy
+base,all,50000,0,110,676,0.1627
+base,all,50000,0,110,676,0.1627
+base,all,10000,0,628,3921,0.1602
+base,heldout,50000,0,25,156,0.1603
+base,heldout,50000,1,25,156,0.1603
+base,heldout,50000,1,25,156,0.1603
+base,heldout,50000,1,25,152,0.1645
+base,heldout,10000,0,145,837,0.1732
+finetuned,heldout,50000,0,140,156,0.8974
+finetuned,heldout,50000,1,140,152,0.9211
