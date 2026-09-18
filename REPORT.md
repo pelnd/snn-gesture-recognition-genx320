@@ -10,7 +10,7 @@
 - [Key Findings / Results](#key-findings--results)
 - [Limitations](#limitations)
 - [Future Work](#future-work)
-- [Notes](#notes)
+- [Acknowledgments](#Acknowledgements)
 
 ## Overview
 
@@ -264,9 +264,51 @@ End to end, a prediction takes about 1.7 seconds on the Pi, far more than the ~3
 
 ## Key Findings / Results
 
+- The final DVS128 model (event-count windowing, N_EVENTS=10,000) reached 94.57% test accuracy. It wasn't the highest DVS128 score among the runs tried, but its windowing matches how the live GenX320 pipeline builds frames, which mattered more than a few extra points on DVS128.
+  
+- After fine-tuning on real GenX320 recordings the model reached accuracy up to 89.74% (92.11% excluding one ambiguous clip) on held-out data. This is the core result of the project. Without fine-tuning, that same model scores only ~16% on real GenX320 data, confirming that fine-tuning was a necessary step for the model to work on the deployment sensor at all.
+  
+- The domain gap traces back to GenX320 producing 5-10x more events per second than DVS128 for the same gestures, with the same per-class density ranking on both sensors. This points to genuine extra spatial detail from GenX320's 6.25x higher pixel count, not sensor noise.
+  
+- Deduplicating events was tested as a way to close that density gap, but only reduced the event rate by ~29%, nowhere near enough, and the resulting fine-tuned model underperformed the raw one (85.07% vs 89.74%). Dedup was dropped from the final pipeline.
+  
+- Inference itself is fast even on the Pi (~356-384ms per window), but a live prediction takes about 1.7 seconds end to end. The bottleneck is waiting for enough events to arrive, not the model's compute time.
+
 ## Limitations
+
+- The held-out test set is a held-out set of *clips*, not a held-out subject, it's drawn from the same two people (A and B, with C and D added as their re-recordings) used in training. So the 89.74% figure shows generalization to new recordings of the same people, not to a new user.
+  
+- Bias wasn't fully controlled across recording sessions: the intended -80/-80 setting silently failed on this hardware and fell back to +25/+28, and it's unknown what value the earliest recordings (subjects A and B) actually used. This was accepted as a known limitation rather than resolved, since count-based windowing absorbs most of the resulting density variation.
+  
+- The fine-tuning dataset is small : only two real subjects, roughly 10-15 usable clips per class each, which limits how confidently these results generalize beyond the people and recording conditions used here.
+
+- The live demo "working well" on the Pi is only a casual, unmeasured impression; the only rigorous accuracy numbers come from the held-out clips, not from live use itself.
+
+- Dedup was the only density-reduction approach tried for closing the domain gap, other approaches (e.g. adaptive windowing, different binning strategies) weren't explored.
+
+- Time-windowing approach wasn't visited again after deciding on a base model, it is not known if it would perform better when fine-tuned.
+
 
 ## Future Work
 
-## Notes
+- STM32 deployment was the intended target hardware and remains a goal for future work: running a reduced model on it, and checking whether it fits the 230KB/1024KB flash/RAM budget, and how that affects accuracy is still open.
+  
+- Generalization to a completely new subject hasn't been tested, so it's still unknown whether the 89.74% figure holds up beyond the two people the model has already seen.
+
+- The fine-tuning dataset could be re-recorded with bias consistently confirmed and logged from the start, removing the current uncertainty around what subjects A and B were actually recorded under.
+
+- Time-windowing could be revisited with fine-tuning to see how it would perform with actual GenX320 data.
+
+- Density-reduction approaches beyond dedup, or other ways to shrink the number of events a window needs, are worth exploring, since that's the real lever for making live predictions feel faster.
+  
+- The fine-tuning dataset could be expanded with more subjects and clips per class, to reduce how much the results depend on a small, specific group of recordings.
+
+
+## Acknowledgments
+
+This project was completed as a summer internship under the supervision of Assistant Professor Amir Yousefzadeh at the University of Twente. Thanks for the guidance and support throughout this project.
+
+Several training and fine-tuning scripts are adapted from SpikingJelly's `classify_dvsg.py` example, licensed under the Qǐzhì Open Source License 1.0 (see `third-party-licenses/`).
+
+Base training uses the DVS128Gesture dataset (Amir et al., "A Low Power, Fully Event-Based Gesture Recognition System", CVPR 2017), loaded via SpikingJelly's built-in dataset wrapper.
 
