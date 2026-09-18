@@ -2,16 +2,11 @@
 
 - [Overview](#overview)
 - [Project Progression](#project-progression)
-  - [1. Initial](#1-initial)
-  - [2. Split by Time](#2-split-by-time)
-  - [3. Ceiling Ref](#3-ceiling-ref)
-  - [4. Event Count](#4-event-count)
-  - [5. Recording](#5-recording)
-  - [6. Event10k](#6-event10k)
-  - [7. Finetuning](#7-finetuning)
-  - [8. Latency](#8-latency)
-  - [9. Environment Pi](#9-environment-pi)
-  - [99. Accuracies / Domain Gap](#99-accuracies--domain-gap)
+  - [Preparation](#preparation)
+  - [1. Initial Model](#1-initial-model)
+  - [2. Training Experiments](#2-training-experiments)
+  - [3. Finetuning](#3-finetuning)
+  - [4. Measurements](#4-measurements)
 - [Key Findings / Results](#key-findings--results)
 - [Limitations](#limitations)
 - [Future Work](#future-work)
@@ -125,7 +120,7 @@ Training curves for the selected model are also shown below. Test accuracy sits 
 
 Full details and training curves for every run are available in [project-history](project-history/02-training-tests).
 
-### 3. Finetuning (03-finetuning](project-history/03-finetuning))
+### 3. Finetuning ([03-finetuning](project-history/03-finetuning))
 
 The model so far has never seen real GenX320 data, only DVS128Gesture, which causes a mismatch between training and deployment. This stage records real GenX320 gesture data and fine-tunes the model on it directly.
 
@@ -209,7 +204,8 @@ For the deduped finetuning run, N_EVENTS was set to 38000, estimated from the ~2
 
 Raw data was carried forward as the better choice; dedup preprocessing is not recommended for future work.
 
-### 4. Measurements (04-measurements](project-history/04-measurements))
+### 4. Measurements ([04-measurements](project-history/04-measurements))
+
 With the raw fine-tuned model ready, it was deployed on the Raspberry Pi and, in casual live use, seemed to work well, but that's just an impression, not something a live demo can actually quantify. To get real numbers, two things were measured instead: a domain-gap baseline against the original, un-finetuned model, and latency benchmarks on the Pi itself.
 
 #### Domain-gap baseline ([04-measurements/domain-gap](project-history/04-measurements/domain-gap))
@@ -236,19 +232,35 @@ Looking at per-class predictions on the full recording set explains why: the bas
 Fine-tuning took the model from ~16% to 89.74% (92.11% excluding the ambiguous clip), a large, clean improvement that confirms fine-tuning on real GenX320 data was fundamental.
 
 #### Latency ([04-measurements/latency](project-history/04-measurements/latency))
+Pure inference latency (forward pass only, on pre-recorded clips) was measured on three machines: the laptop (CPU, 16 threads), the Raspberry Pi (CPU, 4 threads), and the lab GPU (RTX 4060 Ti). Each was run on both the held-out test clips and the full clip set, to get a larger latency sample.  
+<div align="center">
 
+| machine | clip set | median | mean | std | min | max |
+|---|---|---|---|---|---|---|
+| Laptop CPU (16 threads) | held-out | 39.86ms | 44.41ms | 22.60ms | 33.12ms | 233.90ms |
+| Laptop CPU (16 threads) | all | 38.53ms | 41.62ms | 13.57ms | 32.68ms | 264.53ms |
+| Pi CPU (4 threads) | held-out | 384.15ms | 385.54ms | 6.83ms | 378.16ms | 450.55ms |
+| Pi CPU (4 threads) | all | 356.28ms | 353.20ms | 7.48ms | 338.30ms | 442.14ms |
+| Lab GPU (RTX 4060 Ti) | held-out | 2.41ms | 37.21ms | 433.10ms | 2.38ms | 5429.24ms |
+| Lab GPU (RTX 4060 Ti) | all | 2.41ms | 9.24ms | 177.39ms | 2.37ms | 4617.86ms |
 
+</div>
 
+On Pi, inference time is ~356-384ms per window -- fast enough on its own for a responsive demo, but Pi runs ~10x slower than the laptop and ~160x slower than the GPU. These results are in line with the drop from 16 CPU threads to 4 and the CPU-to-GPU gap, the expected cost of the deployment hardware.  
+It is also worth noting that the GPU's inflated mean/std come from a one-time CUDA warm-up cost on the first window of each run; median is the stable number, consistently ~2.41ms.
 
+Inference speed alone doesn't say how the model performs live, though, since it ignores the time spent waiting for enough events to fill a window. A separate script measured that directly on the Pi: the real gap between one prediction and the next, running the live camera pipeline end to end.
 
+<div align="center">
 
+| run | predictions | median | mean | std | min | max |
+|---|---|---|---|---|---|---|
+| confirmed run (50k windowing, fine-tuned checkpoint) | 20 | 1705ms | 1680ms | 265ms | 1214ms | 2418ms |
 
+</div>
 
-### 8. Latency ([8-Latency](project-history/8-Latency))
+End to end, a prediction takes about 1.7 seconds on the Pi, far more than the ~370ms inference-only figure. The difference is event-accumulation time: each window needs 8 frames of 50,000 events, which simply takes time to occur at real gesture speeds, regardless of how fast the model itself runs. Compute is not the bottleneck for this deployment; how quickly the sensor sees enough motion is. In practice, this means further speeding up the model wouldn't make the live demo feel any more responsive -- the real lever would be reducing how many events a window needs, which is a data/windowing decision, not a compute one.
 
-### 9. Environment Pi ([9-EnvironmentPi](project-history/9-EnvironmentPi))
-
-### 99. Accuracies / Domain Gap ([99-Accuracies_DomainGap](project-history/99-Accuracies_DomainGap))
 
 ## Key Findings / Results
 
