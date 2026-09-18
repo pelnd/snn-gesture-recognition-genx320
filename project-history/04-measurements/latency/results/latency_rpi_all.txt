@@ -1,0 +1,25 @@
+device=cpu  torch CPU threads=4  run_on=all
+loaded ./checkpoint_latest.pth (dict-wrapped checkpoint, epoch=15, train_acc=0.93359375)
+33 held-out clips listed in ./test_clips.txt
+clips used: 267, clips skipped (not enough events for one window): 33
+676 windows to measure (all)
+  window 0/676  latency=442.14ms
+  window 50/676  latency=356.05ms
+  window 100/676  latency=356.93ms
+  window 150/676  latency=356.70ms
+  window 200/676  latency=351.94ms
+  window 250/676  latency=342.35ms
+  window 300/676  latency=345.16ms
+  window 350/676  latency=361.69ms
+  window 400/676  latency=356.94ms
+  window 450/676  latency=343.74ms
+  window 500/676  latency=357.61ms
+  window 550/676  latency=347.37ms
+  window 600/676  latency=340.07ms
+  window 650/676  latency=346.17ms
+
+=== all results, device=cpu ===
+windows measured: 676
+latency: median=356.28ms  mean=353.20ms  std=7.48ms  min=338.30ms  max=442.14ms
+per-window log saved to ./latency_all_pi.csv
+

@@ -1,0 +1,17 @@
+device=cpu  torch CPU threads=4  run_on=heldout
+loaded ./checkpoint_latest.pth (dict-wrapped checkpoint, epoch=15, train_acc=0.93359375)
+33 held-out clips listed in ./test_clips.txt
+clips used: 33, clips skipped (not enough events for one window): 0
+156 windows to measure (heldout)
+  window 0/156  latency=448.21ms
+  window 50/156  latency=381.77ms
+  window 100/156  latency=380.41ms
+  window 150/156  latency=381.80ms
+
+=== heldout results, device=cpu ===
+windows measured: 156
+latency: median=380.47ms  mean=381.00ms  std=5.79ms  min=375.71ms  max=448.21ms
+sanity-check accuracy: 140/156 = 89.7%  (compare against 89.7% / 140/156 from the GPU eval)
+per-window log saved to ./latency_heldout_pi.csv
+
+
