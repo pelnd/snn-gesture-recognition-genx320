@@ -1,0 +1,22 @@
+model=finetuned  clip_set=heldout  N_EVENTS=50000
+loaded ./checkpoints/finetune_genx320_raw_50k/checkpoint_latest.pth (epoch=15)
+excluded 1/33 listed clips via EXCLUDE_CLIPS
+32 clips loaded
+152 windows built
+
+overall accuracy: 140/152 = 0.9211
+
+class                         correct    total   accuracy
+hand clap                          26       30     0.8667
+right hand wave                     6        6     1.0000
+other gestures                     17       21     0.8095
+left hand wave                      8        9     0.8889
+right arm clockwise                14       14     1.0000
+right arm counter clockwise        15       15     1.0000
+left arm clockwise                 10       12     0.8333
+left arm counter clockwise         11       11     1.0000
+arm rolls                          12       12     1.0000
+air drums                           8        9     0.8889
+air guitar                         13       13     1.0000
+
+appended result row to ./domain_gap_results.csv
