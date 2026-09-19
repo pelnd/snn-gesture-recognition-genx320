@@ -231,6 +231,12 @@ Looking at per-class predictions on the full recording set explains why: the bas
 
 Fine-tuning took the model from ~16% to 89.74% (92.11% excluding the ambiguous clip), a large, clean improvement that confirms fine-tuning on real GenX320 data was fundamental.
 
+<div align="center">
+
+![Demo of the fine-tuned model classifying gestures from GenX320 recordings](release/demo.gif)
+
+</div>
+
 #### Latency ([04-measurements/latency](project-history/04-measurements/latency))
 Pure inference latency (forward pass only, on pre-recorded clips) was measured on three machines: the laptop (CPU, 16 threads), the Raspberry Pi (CPU, 4 threads), and the lab GPU (RTX 4060 Ti). Each was run on both the held-out test clips and the full clip set, to get a larger latency sample.  
 <div align="center">
