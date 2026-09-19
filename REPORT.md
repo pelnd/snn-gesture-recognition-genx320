@@ -315,7 +315,7 @@ End to end, a prediction takes about 1.7 seconds on the Pi, far more than the ~3
 
 This project was completed as a summer internship under the supervision of Assistant Professor Amir Yousefzadeh at the University of Twente. Thanks for the guidance and support throughout this project.
 
-Several training and fine-tuning scripts are adapted from SpikingJelly's `classify_dvsg.py` example, licensed under the Qǐzhì Open Source License 1.0 (see `third-party-licenses/`).
+Several training and fine-tuning scripts are adapted from SpikingJelly's `classify_dvsg.py` example, licensed under the Qǐzhì Open Source License 1.0. Full license text in [`THIRD_PARTY_LICENSES.md`](THIRD_PARTY_LICENSES.md).
 
 Base training uses the DVS128Gesture dataset (Amir et al., "A Low Power, Fully Event-Based Gesture Recognition System", CVPR 2017), loaded via SpikingJelly's built-in dataset wrapper.
 
