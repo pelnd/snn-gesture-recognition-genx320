@@ -29,6 +29,15 @@ This project was done during my summer internship at the University of Twente, u
 #### [data/](data/)
 - Details about the dataset used, including the fine-tuning data.
 
+## How to use:
+- To run the final model, see the README in [release/](release/).
+- For training, fine-tuning, or past experiments, the code can be found in [project-history/](project-history/):
+  - `01-test-model/` -- the initial tiny model and first end-to-end pipeline (training, evaluation, live inference).
+  - `02-training-tests/` -- windowing and training experiments on DVS128Gesture, used to pick the final base model.
+  - `03-finetuning/` -- fine-tuning the base model on real GenX320 recordings.
+  - `04-measurements/` -- domain-gap baseline and latency benchmarks for the fine-tuned model.
+- For dataset details, see [data/](data/).
+- **Running convention**: each script is meant to be run with its own containing folder as the working directory (e.g. `cd project-history/03-finetuning/finetuning-raw && python train.py`), not from the repo root. Paths inside each script are relative to that folder.
 
 ## Setup:
 
@@ -42,16 +51,6 @@ This project was done during my summer internship at the University of Twente, u
 - numpy==1.26.4
 - opencv-python==4.5.5.64
 - Metavision SDK (Prophesee), needed only for camera access, install separately
-
-## How to use:
-- To run the final model, see the README in [release/](release/).
-- For training, fine-tuning, or past experiments, the code can be found in [project-history/](project-history/):
-  - `01-test-model/` -- the initial tiny model and first end-to-end pipeline (training, evaluation, live inference).
-  - `02-training-tests/` -- windowing and training experiments on DVS128Gesture, used to pick the final base model.
-  - `03-finetuning/` -- fine-tuning the base model on real GenX320 recordings.
-  - `04-measurements/` -- domain-gap baseline and latency benchmarks for the fine-tuned model.
-- For dataset details, see [data/](data/).
-- **Running convention**: each script is meant to be run with its own containing folder as the working directory (e.g. `cd project-history/03-finetuning/finetuning-raw && python train.py`), not from the repo root. Paths inside each script are relative to that folder.
 
 ## Results summary:
 
