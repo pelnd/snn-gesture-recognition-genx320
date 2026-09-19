@@ -27,7 +27,7 @@ from spikingjelly.activation_based import functional, surrogate, neuron
 from spikingjelly.activation_based.model import parametric_lif_net
 from spikingjelly.datasets.dvs128_gesture import DVS128Gesture
 
-DATA_DIR = './data/DVS128Gesture'
+DATA_DIR = '../../../data/DVS128Gesture'
 DEVICE = 'cuda'
 T = 16               # number of simulated timesteps per sample
 DURATION = 125_000
