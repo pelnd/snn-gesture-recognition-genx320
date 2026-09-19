@@ -24,3 +24,5 @@ hand clap, right hand wave, other gestures, left hand wave,
 right arm clockwise, right arm counter clockwise,
 left arm clockwise, left arm counter clockwise,
 arm rolls, air drums, air guitar
+
+For training and finetuning codes, see `project-history/`.
