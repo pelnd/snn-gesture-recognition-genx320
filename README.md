@@ -32,7 +32,7 @@ This project was done during my summer internship at the University of Twente, u
 
 ## Setup:
 
-**Training / evaluation**: any machine with Python 3.11+.
+**Training / evaluation**: any machine with Python 3.11+.  
 **Live deployment**: Raspberry Pi 5 + Prophesee GenX320 event camera.
 
 **Software:**
