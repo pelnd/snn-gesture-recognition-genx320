@@ -4,7 +4,7 @@ This folder contains the final trained model and the code to run it live.
 
 ## Contents
 - `app.py`: live inference script: reads events from a GenX320 camera, classifies gestures in real time, and shows the prediction in a window.
-- `checkpoint_latest.pth` -- the fine-tuned model weights `app.py` loads by default.
+- `checkpoint_latest.pth`: the fine-tuned model weights `app.py` loads by default.
 
 ## Requirements
 - Hardware: Raspberry Pi (or any machine) with a Prophesee GenX320 event camera connected.
