@@ -6,6 +6,12 @@ This repository includes the development stages and final release of a spiking n
 
 Event-based sensing and SNNs are both driven by change rather than fixed frames; a combination of them might be a step toward low-power, real-time gesture recognition on suitable hardware. The broader goal in this project was to explore how this kind of model can be trained and adapted across embedded hardware platforms with different constraints, and how accuracy and efficiency trade off as those constraints tighten. While the final model here is deployed on a Raspberry Pi, the same pipeline could serve as a starting point for deployment on more event-friendly / neuromorphic processors.
 
+<div align="center">
+
+![Demo of the fine-tuned model classifying gestures from GenX320 recordings](release/demo.gif)
+
+</div>
+
 This project was done during my summer internship at the University of Twente, under the supervision of Assistant Professor Amir Yousefzadeh. Thanks for the guidance and support throughout this project.
 
 
