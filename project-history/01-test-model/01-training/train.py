@@ -26,8 +26,8 @@ CHANNELS = 32       # width of the conv layers in the network
 EPOCHS = 2
 LR = 1e-3
 NUM_CLASSES = 11    # DVS128 Gesture has 11 gesture classes
-CHECKPOINT_DIR = './02-weights_and_logs'
-RESUME_PATH = None  # set to './02-weights_and_logs/checkpoint_latest.pth' to resume
+CHECKPOINT_DIR = '../02-weights-and-logs'
+RESUME_PATH = None  # set to '../02-weights-and-logs/checkpoint_latest.pth' to resume
 PRINT_EVERY = 20 
 
 NUM_WORKERS = 0  # >0 causes segfaults for me
