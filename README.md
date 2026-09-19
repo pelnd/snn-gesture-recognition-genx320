@@ -32,10 +32,10 @@ This project was done during my summer internship at the University of Twente, u
 ## How to use:
 - To run the final model, see the README in [release/](release/).
 - For training, fine-tuning, or past experiments, the code can be found in [project-history/](project-history/):
-  - `01-test-model/` -- the initial tiny model and first end-to-end pipeline (training, evaluation, live inference).
-  - `02-training-tests/` -- windowing and training experiments on DVS128Gesture, used to pick the final base model.
-  - `03-finetuning/` -- fine-tuning the base model on real GenX320 recordings.
-  - `04-measurements/` -- domain-gap baseline and latency benchmarks for the fine-tuned model.
+  - `01-test-model/` : the initial tiny model and first end-to-end pipeline (training, evaluation, live inference).
+  - `02-training-tests/` : windowing and training experiments on DVS128Gesture, used to pick the final base model.
+  - `03-finetuning/` : fine-tuning the base model on real GenX320 recordings.
+  - `04-measurements/` : domain-gap baseline and latency benchmarks for the fine-tuned model.
 - For dataset details, see [data/](data/).
 - **Running convention**: each script is meant to be run with its own containing folder as the working directory (e.g. `cd project-history/03-finetuning/finetuning-raw && python train.py`), not from the repo root. Paths inside each script are relative to that folder.
 
@@ -55,7 +55,7 @@ This project was done during my summer internship at the University of Twente, u
 ## Results summary:
 
 - Fine-tuned model reaches **89.7%** accuracy on held-out test clips (92.1% excluding one ambiguous clip).
-- Before fine-tuning, the base model (trained only on DVS128Gesture) scored **~16%** on GenX320 data. Fine-tuning was necessary, not just a marginal improvement.
+- Before fine-tuning, the base model (trained only on DVS128Gesture) scored **~16%** on GenX320 data, showing fine-tuning was cruical
 - Inference latency: ~39ms/window (laptop CPU), ~370ms/window (Pi CPU), ~2.4ms/window (GPU). Real end-to-end latency on the Pi (live camera) is ~1.7s/prediction, since accumulating enough events takes longer than the inference itself.
 
 See [REPORT.md](REPORT.md) for full results and analysis.
@@ -69,7 +69,7 @@ See [REPORT.md](REPORT.md) for full results and analysis.
 ## Future Work:
 
 - **Adapting and deploying the model on other hardware**
-- **Enrich fine-tuning and testing data** — more clips, more subjects, more consistent recording conditions (see bias inconsistency above).
+- **Enrich fine-tuning and testing data** : more clips, more subjects, more consistent recording conditions (see bias inconsistency above).
 
 ## Credits:
 - [SpikingJelly](https://github.com/fangwei123456/spikingjelly): SNN framework used for training and inference. The training scripts are based on their `classify_dvsg.py` example, heavily modified (see `third-party-licenses/`).
