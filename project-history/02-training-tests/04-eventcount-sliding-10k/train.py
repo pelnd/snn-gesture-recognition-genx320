@@ -29,7 +29,7 @@ from spikingjelly.activation_based import functional, surrogate, neuron
 from spikingjelly.activation_based.model import parametric_lif_net
 from spikingjelly.datasets.dvs128_gesture import DVS128Gesture
 
-DATA_DIR = './data/DVS128Gesture'
+DATA_DIR = '../../../data/DVS128Gesture'
 DEVICE = 'cuda'
 T = 8
 N_EVENTS = 10_000   # fixed events per frame, tuned against per-class p10 density
