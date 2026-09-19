@@ -1,0 +1,7 @@
+torch==2.13.0
+spikingjelly==0.0.0.0.14
+numpy==1.26.4
+opencv-python==4.5.5.64
+
+# Prophesee Metavision SDK is not pip-installable -- install separately
+# following Prophesee's own instructions (system-level install, not pip).
