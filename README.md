@@ -72,6 +72,6 @@ See [REPORT.md](REPORT.md) for full results and analysis.
 - **Enrich fine-tuning and testing data** : more clips, more subjects, more consistent recording conditions (see bias inconsistency above).
 
 ## Credits:
-- [SpikingJelly](https://github.com/fangwei123456/spikingjelly): SNN framework used for training and inference. The training scripts are based on their `classify_dvsg.py` example, heavily modified (see `third-party-licenses/`).
+- [SpikingJelly](https://github.com/fangwei123456/spikingjelly): SNN framework used for training and inference. The training scripts are based on their `classify_dvsg.py` example, heavily modified ([`THIRD_PARTY_LICENSES.md`](THIRD_PARTY_LICENSES.md).).
 - [DVS128Gesture](https://research.ibm.com/interactive/dvsgesture/): base training dataset.
 - Portions of the code and documentation in this repository were developed with the assistance of Claude (Anthropic).
