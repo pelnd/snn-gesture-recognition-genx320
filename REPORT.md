@@ -204,6 +204,12 @@ For the deduped finetuning run, N_EVENTS was set to 38000, estimated from the ~2
 
 Raw data was carried forward as the better choice; dedup preprocessing is not recommended for future work.
 
+<div align="center">
+
+![Demo of the fine-tuned model classifying gestures from GenX320 recordings](release/demo.gif)
+
+</div>
+
 ### 4. Measurements ([04-measurements](project-history/04-measurements))
 
 With the raw fine-tuned model ready, it was deployed on the Raspberry Pi and, in casual live use, seemed to work well, but that's just an impression, not something a live demo can actually quantify. To get real numbers, two things were measured instead: a domain-gap baseline against the original, un-finetuned model, and latency benchmarks on the Pi itself.
@@ -231,11 +237,6 @@ Looking at per-class predictions on the full recording set explains why: the bas
 
 Fine-tuning took the model from ~16% to 89.74% (92.11% excluding the ambiguous clip), a large, clean improvement that confirms fine-tuning on real GenX320 data was fundamental.
 
-<div align="center">
-
-![Demo of the fine-tuned model classifying gestures from GenX320 recordings](release/demo.gif)
-
-</div>
 
 #### Latency ([04-measurements/latency](project-history/04-measurements/latency))
 Pure inference latency (forward pass only, on pre-recorded clips) was measured on three machines: the laptop (CPU, 16 threads), the Raspberry Pi (CPU, 4 threads), and the lab GPU (RTX 4060 Ti). Each was run on both the held-out test clips and the full clip set, to get a larger latency sample.  
