@@ -156,7 +156,7 @@ Real-time event density was computed per class for both DVS128Gesture and GenX32
 #### Testing Deduplication of Events Approach
 As the event-densities showed,  using the same N_EVENTS = 10000 value on GenX320 would span too little real time per frame, frames would no longer represent a consistent motion. 
 
-For this reason, an approach of deduplicating events, merging spatially neighboring events and repeat firings from the same pixel close in time,  was tested as a way to shrink GenX320's event count without losing real temporal coverage. Temporal-only dedup (refractory suppression on repeat firings at native 320x320 resolution) reduced it by 11.6%; combined, the two together reduced it by 29.0%.
+For this reason, an approach of deduplicating events, merging spatially neighboring events and repeat firings from the same pixel close in time,  was tested as a way to shrink GenX320's event count without losing real temporal coverage. Spatial-only dedup (merging events from neighboring native pixels that land in the same 128x128 bin, same polarity, within 1ms) reduced the event count by 16.5%; temporal-only dedup (refractory suppression on repeat firings at native 320x320 resolution) reduced it by 11.6%; a combined run of the two together reduced it by 29.0%.
 
 Even combined, a 29% reduction fell far short of closing the density gap, dedup alone wasn't the fix. Still, a small held-out test set was set aside to directly compare a deduped fine-tuning run against a raw one, in case dedup helped in ways the density numbers alone didn't capture.
 
