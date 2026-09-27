@@ -10,7 +10,6 @@ MODEL COMPLEXITY
 ============================================================
 Parameters:  730,478
 Model size:  8.39 MB (on disk)
-The directory [D:\VsCode Projects\Staj 2026\spiking jelly\DVS  Gesture dataset\duration_125000] already exists.
 test samples: 1853  (from 288 recordings)
 
 ============================================================
