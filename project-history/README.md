@@ -41,4 +41,4 @@ Evaluating the fine-tuned model.
 
 ## Running
 
-Each script is run from its own containing folder as the working directory (e.g. `cd 03-finetuning && python finetune_raw.py`), since paths inside them are relative to that folder.
+Each script is run from its own containing folder as the working directory (e.g. `cd 03-finetuning/finetuning-raw && python train.py`), since paths inside them are relative to that folder.
