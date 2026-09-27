@@ -55,7 +55,7 @@ This project was done during my summer internship at the University of Twente, u
 ## Results summary:
 
 - Fine-tuned model reaches **89.7%** accuracy on held-out test clips (92.1% excluding one ambiguous clip).
-- Before fine-tuning, the base model (trained only on DVS128Gesture) scored **~16%** on GenX320 data, showing fine-tuning was cruical
+- Before fine-tuning, the base model (trained only on DVS128Gesture) scored **~16%** on GenX320 data, showing fine-tuning was crucial
 - Inference latency: ~39ms/window (laptop CPU), ~370ms/window (Pi CPU), ~2.4ms/window (GPU). Real end-to-end latency on the Pi (live camera) is ~1.7s/prediction, since accumulating enough events takes longer than the inference itself.
 
 See [REPORT.md](REPORT.md) for full results and analysis.
