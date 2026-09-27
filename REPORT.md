@@ -166,7 +166,7 @@ Picking N_EVENTS was an important task, since in an event-count based approach i
 
 This left a tradeoff to find a sweet spot for: frame duration. 
 
-Based on the density gap and usable windows, two candidates were chosen: 37k and 50k. Below is their duraiton table:
+Based on the density gap and usable windows, two candidates were chosen: 37k and 50k. Below is their duration table:
 
 <div align="center">
 
@@ -311,7 +311,7 @@ End to end, a prediction takes about 1.7 seconds on the Pi, far more than the ~3
 - The fine-tuning dataset could be expanded with more subjects and clips per class, to reduce how much the results depend on a small, specific group of recordings.
 
 
-## Acknowledgments
+## Acknowledgements
 
 This project was completed as a summer internship under the supervision of Assistant Professor Amir Yousefzadeh at the University of Twente. Thanks for the guidance and support throughout this project.
 
